@@ -45,12 +45,20 @@ Create directory to store inputs
 ```
 mkdir data 
 ```  
-Copy your RNA-seq reads (.fastq.gz), rRNA sequences (.fa), Reference genomes (.fa), rel sp. reference genome (.fa), Annotations (.gtf) and Lifover files in data directory; create file data.txt in the same by using data_template.txt and add paths for raw fastq.gz, rRNA sequences, reference genome, rel sp. reference genome, annotations and lifover files in the same
- 
-  
-8. Pipeline is ready for executaion \
+Copy your RNA-seq reads (.fastq.gz), rRNA sequences (.fa), Reference genomes (.fa), rel sp. reference genome (.fa), Annotations (.gtf) and Lifover files in data directory; create file data.txt in the same by using data_template.txt and add paths for raw fastq.gz, rRNA sequences, reference genome, rel sp. reference genome, annotations and lifover files in the same \
+If you don't have reference genome, annotations and rRNA sequence information; you can download the same with script provided with pipeline as follows
+```
+python check_ensembl.py org_name
+eg. python check_ensembl.py Sorghum
+> sbicolor
+python ensembl.py org_name_in_ensembl
+eg. python ensembl.py sbicolor
+> Ensembl version 56 <- download the datasets
+```
+
+9. Pipeline is ready for executaion \
 Run following command and execute the steps for lncRNAs and NPCTs analysis 
 ```
 bpipe run -n ${threads} ~/Path_to_LncRAnalyzer/Main.groovy data/data.txt
 ```
-## Thanks for using lncPipe !!
+## Thanks for using LncRAnalyzer !!
