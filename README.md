@@ -18,12 +18,7 @@ git clone https://github.com/nikhilshinde0909/LncRAnalyzer.git
 2. Download and install latest release of Mambaforge from github [https://github.com/conda-forge/miniforge] to install required softwares and tools.
 
 
-3. Once the Mambaforge is installed, Install the requrired softwares in base environment with following command 
-```
-mamba install -c bioconda stringtie samtools hisat2 gffread gffcompare fastp pblat bpipe bedtools seqtk
-```
-or \
-One can create and activate LncRAnalyzer environment from LncRAnalyzer.yml file as follows
+3. Once the Mambaforge is installed, Install the requrired softwares by creating LncRAnalyzer environment from LncRAnalyzer.yml file as follows
 ```
 mamba env create -f LncRAnalyzer.yml
 mamba activate lncPipe
@@ -39,9 +34,14 @@ mamba create -p ~/FEELnc -c bioconda feelnc
 mamba env create -f cpc2-cpat-slncky.yml
 ```
 
-6. Add the path of conda environments and installed softwares in the file named tools.groovy
+6.Create environment for RNAsamba
+```
+mamba create -n rnasamba -c bioconda rnasamba
+```
 
-7. Inputs
+7. Add the path of conda environments and installed softwares in the file named tools.groovy
+
+8. Inputs
 Create directory to store inputs 
 ```
 mkdir data 
