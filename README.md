@@ -65,3 +65,7 @@ bpipe run -n ${threads} ~/Path_to_LncRAnalyzer/Main.groovy data/data.txt
 
 ## Peformace
 The performance of lncRNAs prediction by CPAT, CPC2, RNAsamba and FEELnc was estimated by using 98 RNA-Seq accessions of root tissues of sorghum cultivar BTX642 from past studies [https://doi.org/10.1073/pnas.1907500116] 
+
+<p align="center">
+  <img src="https://github.com/nikhilshinde0909/LncRAnalyzer/blob/main/scripts/ROC.png" width=70% height=70%>
+</p>
