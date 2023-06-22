@@ -62,3 +62,6 @@ Run following command and execute the steps for lncRNAs and NPCTs analysis
 bpipe run -n ${threads} ~/Path_to_LncRAnalyzer/Main.groovy data/data.txt
 ```
 ## Thanks for using LncRAnalyzer !!
+
+## Peformace
+The performance of lncRNAs prediction by CPAT, CPC2, RNAsamba and FEELnc was estimated with 98 RNA-Seq accessions of root tissues of sorghum cultivar BTX642 from past studies [https://doi.org/10.1073/pnas.1907500116] 
