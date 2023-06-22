@@ -5,7 +5,7 @@ Pipeline for identification of lncRNAs and Novel Protein Coding Transcripts (NPC
 LncRAnalyzer can be used to identify lncRNAs and Novel Protein Coding Transcripts (NPCT) with large number of RNA-seq datasets, it contains genome guided assembly, merge annotattions, annotation compare, classcode selection and final retrival of transcripts in fasta format. The putative lncRNAs and NPCTs will be further tested for their coding potentials with CPC2,CPAT, PLEK (Time consuming) and RNAsamba. Based on coding potentials lncRNAs and NPCTs will be selected. Additionally, if someone have Lifover files for the organism and related species; conservation analysis will be also performed with slncky. We integreated FEELnc plugin to detect the mRNA spliced and intergenic lncRNAs in RNA-seq samples. For NPCTs one can go for TransDecoder followed by Pfamscan to retrive protein family annotations. Pipeline will be executed in conda environment.
 
 <p align="center">
-  <img src="[https://github.com/nikhilshinde0909/LncRAnalyzer/blob/main/scripts/LncRAnalyzer.png]" width=50% height=25%>
+  <img src="https://github.com/nikhilshinde0909/LncRAnalyzer/blob/main/scripts/LncRAnalyzer.png" width=50% height=25%>
 </p>
 
 
