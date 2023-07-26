@@ -60,18 +60,16 @@ unmapped_reads = {
 }
 
 gzip_reads = {
-        output.dir=unmapped_reads_dir
-        if(reads_R2=="")
-        {
-        exec "gzip $input.fastq"
-        }
-        else
-	{
-        exec "gzip input_1.fastq input_2.fastq"
-        }
+    def input_options = ""
+    if (reads_R2 == "") {
+        input_gzip_options = unmapped_reads_dir + "/" + branch.name + ".fastq"
+    } else {
+        input_gzip_options = unmapped_reads_dir + "/" + branch.name + "_1.fastq " + unmapped_reads_dir + "/" + branch.name + "_2.fastq"
+    }
+    exec "$gzip $input_gzip_options"
 }
 
-unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * 
-			[ map_reads_to_rRNAs ] + unmapped_bam +
-			qsorted_bam + fastqInputFormat * [unmapped_reads + gzip_reads]
+unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs ] + 
+			unmapped_bam + qsorted_bam + 
+			fastqInputFormat * [unmapped_reads + gzip_reads]
 			}
