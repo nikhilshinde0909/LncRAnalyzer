@@ -60,7 +60,7 @@ unmapped_reads = {
 }
 
 gzip_reads = {
-    def input_options = ""
+    def input_gzip_options=""
     if (reads_R2 == "") {
         input_gzip_options = unmapped_reads_dir + "/" + branch.name + ".fastq"
     } else {
