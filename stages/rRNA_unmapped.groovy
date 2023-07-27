@@ -48,7 +48,7 @@ unmapped_reads = {
 	if(reads_R2=="") 
 	produce(branch.name+".fastq"){
 	exec """
-	$bamToFastq -i $input.qsort.bam -fq $output && rm -rf $input..qsort.bam
+	$bamToFastq -i $input.qsort.bam -fq $output && rm -rf $input.qsort.bam
 	"""
 	}
 	else
