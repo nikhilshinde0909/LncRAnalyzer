@@ -20,14 +20,13 @@ ref_genome_bed = {
 }
 
 fasta_index = {
-	output.dir=slncky_dir
-	produce("Ref_genome.fa","Rel_ref_genome.fa"){
-	exec """
-	cp $genome $output1 ;
-	$samtools faidx $output1 ;
-	cp $genome_related_species $output2 ;
-        $samtools faidx $output2
+        if (fileExists('${genome}.fa.fai') && fileExists('${genome_related_species}.fa.fai')) {
+        exec """
+	$samtools faidx ${genome} ;
+	$samtools faidx ${genome_related_species}
 	"""
+	} else {
+	exec "echo \"ERROR: Required .fai files not found for genome or related species.\""
 	}
 }
 
