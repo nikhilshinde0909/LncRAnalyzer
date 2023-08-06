@@ -20,45 +20,57 @@ ref_genome_bed = {
 }
 
 fasta_index = {
-        if (fileExists('${genome}.fa.fai') && fileExists('${genome_related_species}.fa.fai')) {
+    if ('${genome}.fai' != "" && '${genome_related_species}.fai' != "") {
         exec """
-	$samtools faidx ${genome} ;
-	$samtools faidx ${genome_related_species}
-	"""
-	} else {
-	exec "echo \"ERROR: Required .fai files not found for genome or related species.\""
-	}
+        $samtools faidx ${genome} ;
+        $samtools faidx ${genome_related_species}
+        """
+    } else {
+        exec "echo \"Required .fai files are already there for genome or related species.\""
+    }
 }
 
 annotation_config = {
-	output.dir=slncky_dir
-	from("Ref_genome.bed","Rel_ref_genome.bed","Ref_genome.fa","Rel_ref_genome.fa") produce("annotation.config"){
-	if(liftover!=""){	
-	exec """
-	echo '>'$org_name >> $output ;
-        echo 'CODING='$input1 >> $output ;
-        echo 'GENOME_FA='$input3 >> $output ;
-	echo 'ORTHOLOG='$rel_sp_name >> $output ;
-	echo 'LIFTOVER='$liftover >> $output ;
-	echo '>'$rel_sp_name >> $output ;
-	echo 'CODING='$input2 >> $output ;
-	echo 'GENOME_FA='$input4 >> $output ;
-	echo 'ORTHOLOG='$org_name >> $output ;
-	echo 'LIFTOVER='$rel_liftover >> $output
+    output.dir = slncky_dir
+    from("Ref_genome.bed", "Rel_ref_genome.bed") produce("annotation.config") {
+        if (liftover != "") {
+            exec """
+            echo '>'$org_name >> $output ;
+            echo 'CODING='$input1 >> $output ;
+            echo 'GENOME_FA='$genome >> $output ;
+            echo 'ORTHOLOG='$rel_sp_name >> $output ;
+            echo 'LIFTOVER='$liftover >> $output ;
+            echo 'NONCODING='$noncoding >> $output ;
+            echo 'MIRNA='$mir >> $output ;
+            echo 'SNORNA='$sno >> $output ;
+            echo '>'$rel_sp_name >> $output ;
+            echo 'CODING='$input2 >> $output ;
+            echo 'GENOME_FA='$genome_related_species >> $output ;
+            echo 'ORTHOLOG='$org_name >> $output ;
+            echo 'LIFTOVER='$rel_liftover >> $output ;
+            echo 'NONCODING='$rel_noncoding >> $output ;
+            echo 'MIRNA='$rel_mir >> $output ;
+            echo 'SNORNA='$rel_sno >> $output
+            """
+        } else {
+            exec """
+            echo '>'$org_name >> $output ;
+            echo 'CODING='$input1 >> $output ;
+            echo 'GENOME_FA='$genome >> $output ;
+            echo 'ORTHOLOG='$rel_sp_name >> $output ;
+            echo 'NONCODING='$noncoding >> $output ;
+            echo 'MIRNA='$mir >> $output ;
+            echo 'SNORNA='$sno >> $output ;
+            echo '>'$rel_sp_name >> $output ;
+            echo 'CODING='$input2 >> $output ;
+            echo 'GENOME_FA='$genome_related_species >> $output ;
+            echo 'ORTHOLOG='$org_name >> $output ;
+            echo 'NONCODING='$rel_noncoding >> $output ;
+            echo 'MIRNA='$rel_mir >> $output ;
+            echo 'SNORNA='$rel_sno >> $output
 	"""
-	} else {
-	exec """
-	echo '>'$org_name >> $output ;
-        echo 'CODING='$input1 >> $output ;
-        echo 'GENOME_FA='$input3 >> $output ;
-        echo 'ORTHOLOG='$rel_sp_name >> $output ;
-        echo '>'$rel_sp_name >> $output ;
-        echo 'CODING='$input2 >> $output ;
-        echo 'GENOME_FA='$input4 >> $output ;
-        echo 'ORTHOLOG='$org_name >> $output ;
-        """
-	}
-	}
+        }
+    }
 }
 
 putative_lnc_npcts_bed = {
