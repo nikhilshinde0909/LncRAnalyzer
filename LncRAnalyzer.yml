@@ -1,4 +1,4 @@
-name: LncRAnalyzer
+name: base
 channels:
   - conda-forge
   - r
