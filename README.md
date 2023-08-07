@@ -18,9 +18,9 @@ git clone https://github.com/nikhilshinde0909/LncRAnalyzer.git
 2. Download and install latest release of Mambaforge from github [https://github.com/conda-forge/miniforge] to install required softwares and tools.
 
 
-3. Once the Mambaforge is installed, Install the requrired softwares by creating LncRAnalyzer environment from LncRAnalyzer.yml file as follows
+3. Once the Mambaforge is installed, Install the requrired softwares by updating base environment from LncRAnalyzer.yml file as follows
 ```
-mamba env create -f LncRAnalyzer.yml
+mamba env update --file LncRAnalyzer.yml
 ```
 
 4. Create conda environment for FEELnc with following commmand 
