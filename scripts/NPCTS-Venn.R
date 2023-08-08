@@ -20,7 +20,7 @@ RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
 myCol <- brewer.pal(8, "Accent")
 
 # Venn
-data1 <- list('RNAsamba'=RNAsamba$V1
+data1 <- list('RNAsamba'=RNAsamba$V1,
               'CPAT' = CPAT$V1,
               'CPC2' =  CPC2$V1)
 
