@@ -19,9 +19,9 @@ build_rRNA_index = {
 map_reads_to_rRNAs = {
         def input_reads_option=""
 	if(reads_R2=="")
-             input_reads_option = "-U "+fastp_dir+"/"+branch.name+".fastq.gz"
+             input_reads_option = "-U "+ input
         else
-             input_reads_option = "-1 "+fastp_dir+"/"+branch.name+"_1.fastq.gz"+" -2 "+fastp_dir+"/"+branch.name+"_2.fastq.gz"
+             input_reads_option = "-1 "+ input1 + " -2 "+ input2
         doc "Aligning reads to rRNAs using HISAT2"
 	output.dir=unmapped_reads_dir
 	produce(branch.name+".rRNA.bam",branch.name+".rRNA.summary"){
@@ -66,10 +66,9 @@ gzip_reads = {
     } else {
         input_gzip_options = unmapped_reads_dir + "/" + branch.name + "_1.fastq " + unmapped_reads_dir + "/" + branch.name + "_2.fastq"
     }
-    exec "$gzip $input_gzip_options"
+    exec "gzip $input_gzip_options"
 }
 
 unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs ] + 
 			unmapped_bam + qsorted_bam + 
-			fastqInputFormat * [unmapped_reads + gzip_reads]
-			}
+			fastqInputFormat * [unmapped_reads + gzip_reads] }
