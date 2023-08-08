@@ -26,7 +26,7 @@ data1 <- list('FEELnc'=  FEELnc$V1,
               'CPC2' =  CPC2$V1,
               'RNAsamba'=RNAsamba$V1)
 
-tiff(args[1], units="cm", width = 15,
+tiff(args[5], units="cm", width = 15,
      height=12, res=300)
 venn(data1, ilcs = 1.1, sncs = 1.3, ilabels = TRUE, ellipse = TRUE, opacity = 0.30, ggplot = TRUE, box = FALSE, 
      zcolor = myCol, cex = 0.8)
