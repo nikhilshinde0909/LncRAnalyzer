@@ -16,6 +16,12 @@ CPAT <- read.table(args[1], header = FALSE, sep = '\t')
 CPC2 <- read.table(args[2], header = FALSE, sep = '\t')
 RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
 
+# Results
+data <- data.frame("NPCTs RNA Prediction Method"=c("RNAsamba", "CPAT", "CPC2"), 
+                   "Number of Predicted NPCTs"=c(length(RNAsamba$V1), length(CPAT$V1), length(CPC2$V1)))
+write.table(data,'LncRAnalyzer-summary/LncRAnalyzer-NPCTs.TSV', row.names = F, col.names = T,
+            sep = '\t', quote = F)
+
 # Colors 
 myCol <- brewer.pal(8, "Accent")
 
