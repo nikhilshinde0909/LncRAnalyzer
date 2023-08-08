@@ -20,9 +20,9 @@ RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
 myCol <- brewer.pal(8, "Accent")
 
 # Venn
-data1 <- list('CPAT' = CPAT$V1,
-              'CPC2' =  CPC2$V1,
-              'RNAsamba'=RNAsamba$V1)
+data1 <- list('RNAsamba'=RNAsamba$V1
+              'CPAT' = CPAT$V1,
+              'CPC2' =  CPC2$V1)
 
 tiff("LncRAnalyzer-summary/LncRAnalyzer-NPCTs-Venn.tiff", units="cm", width = 15,
      height=12, res=300)
