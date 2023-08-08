@@ -8,7 +8,7 @@ conflict_prefer("lag", "dplyr")
 # Get command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 4) {
-  stop("Usage: Lnc-venn.R CPAT_list CPC2_list RNAsamba_list FEELnc_list out_name")
+  stop("Usage: Lnc-venn.R CPAT_list CPC2_list RNAsamba_list FEELnc_list")
 }
 
 # Read data from input files
