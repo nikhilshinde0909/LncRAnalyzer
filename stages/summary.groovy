@@ -17,7 +17,7 @@ get_FEELnc_results = {
 lnc_venn = {
 	output.dir=summary_dir
 	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list") produce("LncRAnalyzer-lnc_venn.log") {
-	exec "$Rscript $npcts_venn_script $input1 $input2 $input3 $input4 > $output"
+	exec "$Rscript $lnc_venn_script $input1 $input2 $input3 $input4 > $output"
 	}
 } 
 
