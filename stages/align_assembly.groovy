@@ -27,9 +27,9 @@ gtf_to_splice_sites = {
 map_reads_to_genome = {
         def input_reads_option=""
         if(reads_R2=="")
-             input_reads_option = "-U "+unmapped_reads_dir+"/"+branch.name+".fastq.gz"
+             input_reads_option = "-U "+fastp_dir+"/"+branch.name+".fastq.gz"
         else
-             input_reads_option = "-1 "+unmapped_reads_dir+"/"+branch.name+"_1.fastq.gz"+" -2 "+unmapped_reads_dir+"/"+branch.name+"_2.fastq.gz"
+             input_reads_option = "-1 "+fastp_dir+"/"+branch.name+"_1.fastq.gz"+" -2 "+fastp_dir+"/"+branch.name+"_2.fastq.gz"
 	doc "Aligning reads to genome using HISAT2"
 	output.dir=align_and_assembly_dir
 	produce(branch.name+".bam",branch.name+".summary"){
