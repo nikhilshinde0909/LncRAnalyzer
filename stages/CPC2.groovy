@@ -18,8 +18,8 @@ cpc2_final_lnc_RNAs = {
 	output.dir=cpc2_dir
 	from("Putative.lnc_NPCTs.cpc2.txt") produce("final_lnc_RNAs-cpc2.TSV","final_lnc_RNAs-cpc2.list"){
 	exec """
-	grep -E -w 'ID|noncoding' $input|sed 's/#//g' > $output1 ;
-	grep -E -w 'ID|noncoding' $input|sed 's/#//g'|cut -f1 > $output2
+	grep -E -w 'noncoding' $input > $output1 ;
+	grep -E -w 'noncoding' $input|cut -f1 > $output2
 	"""
 	  }
 }
@@ -28,8 +28,8 @@ cpc2_final_NPCTs = {
 	output.dir=cpc2_dir
 	from("Putative.lnc_NPCTs.cpc2.txt") produce("final_NPCTs-cpc2.TSV","final_NPCTs-cpc2.list"){
 	exec """
-	grep -E -w 'ID|coding' $input|sed 's/#//g' > $output1 ;
-	grep -E -w 'ID|coding' $input|sed 's/#//g'|cut -f1 >	$output2
+	grep -E -w 'coding' $input > $output1 ;
+	grep -E -w 'coding' $input|cut -f1 > $output2
 	"""
 	  }
 }
