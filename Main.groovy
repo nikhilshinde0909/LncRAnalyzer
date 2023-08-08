@@ -45,6 +45,7 @@ load codeBase+"/stages/PLEK.groovy"
 load codeBase+"/stages/rnasamba.groovy"
 load codeBase+"/stages/FEELnc_shuffle.groovy"
 load codeBase+"/stages/FEELnc_intergenic.groovy"
+load codeBase+"/stages/summary.groovy"
 
 /******************* Here are the pipeline stages **********************/
 
@@ -85,5 +86,6 @@ run { set_input + run_check +
 	//plek_based_coding_potentials.using(threads: nthreads) +
 	coding_potential_calculations +
 	shuffle.using(threads: nthreads) +
-	intergenic.using(threads: nthreads)
+	intergenic.using(threads: nthreads) +
+	LncRAnalyzer_summary
 	}
