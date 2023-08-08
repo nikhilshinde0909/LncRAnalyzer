@@ -1,6 +1,8 @@
 library(tidyverse)
 library(venn)
 library(RColorBrewer)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
 
 # Get command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
