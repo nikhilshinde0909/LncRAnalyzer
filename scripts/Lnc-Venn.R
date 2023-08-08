@@ -17,6 +17,9 @@ CPC2 <- read.table(args[2], header = FALSE, sep = '\t')
 RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
 FEELnc <- read.table(args[4], header = FALSE, sep = '\t')
 
+# colors
+myCol <- brewer.pal(8, "Accent")
+
 # Venn
 data1 <- list('FEELnc'=  FEELnc$V1,
               'CPAT' = CPAT$V1,
