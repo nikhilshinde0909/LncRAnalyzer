@@ -39,9 +39,9 @@ CPAT_extract_fasta = {
 	output.dir=CPAT_dir
 	from("CPAT_output.TSV","Putative.lnc_NPCTs.fa") produce("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-CPAT.fa","final_NPCTs-CPAT.list","final_NPCTs-CPAT.fa"){
 	exec """
-	awk -F '\t'  '\$6 < 0.5' $input1 | cut -f1 > $output1 ;
+	awk -F '\t'  '\$6 < 0.5' $input1 | cut -f1|sed 1,1d > $output1 ;
 	${seqtk} subseq $input2 $output1 > $output2 ;
-	awk -F '\t'  '\$6 > 0.5' $input1 | cut -f1 > $output3 ;
+	awk -F '\t'  '\$6 > 0.5' $input1 | cut -f1|sed 1,1d > $output3 ;
 	${seqtk} subseq $input2 $output3 > $output4
 	"""
 	}
