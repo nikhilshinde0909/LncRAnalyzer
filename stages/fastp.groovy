@@ -10,9 +10,9 @@ fastp_dir="fastp"
 FastP = {
     def input_fastq_options = ""
     if (reads_R2 == "") {
-        input_fastq_options = "-i " + input
+        input_fastq_options = "-i " + unmapped_reads_dir + "/" + branch.name + ".fastq.gz"
     } else {
-        input_fastq_options = "-i " + input1 + " -I " + input2
+	input_fastq_options = "-i " + unmapped_reads_dir + "/" + branch.name + "_1.fastq.gz" + " -I " + unmapped_reads_dir + "/" + branch.name + "_2.fastq.gz"
     }
     output.dir = fastp_dir
     if (reads_R2 == "") {
@@ -20,7 +20,7 @@ FastP = {
             exec "$fastp --thread $threads $input_fastq_options -o $output1 --html $output2 --json $output3"
         }
     } else {
-        produce(branch.name + "_1.fastq.gz", branch.name + "_2.fastq.gz", branch.name + ".html", branch.name + ".json") {
+	produce(branch.name + "_1.fastq.gz", branch.name + "_2.fastq.gz", branch.name + ".html", branch.name + ".json") {
             exec "$fastp --thread $threads $input_fastq_options -o $output1 -O $output2 --html $output3 --json $output4"
         }
     }
