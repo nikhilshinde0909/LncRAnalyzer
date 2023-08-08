@@ -17,6 +17,12 @@ CPC2 <- read.table(args[2], header = FALSE, sep = '\t')
 RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
 FEELnc <- read.table(args[4], header = FALSE, sep = '\t')
 
+# Results
+data <- data.frame("Lnc RNA Prediction Method"=c("FEELnc", "RNAsamba", "CPAT", "CPC2"), 
+                   "Number of Predicted Lncs"=c(length(FEELnc$V1),length(RNAsamba$V1), length(CPAT$V1), length(CPC2$V1)))
+write.table(data,'LncRAnalyzer-summary/LncRAnalyzer-Lncs.TSV', row.names = F, col.names = T,
+            sep = '\t', quote = F)
+
 # Colors
 myCol <- brewer.pal(8, "Darl2")
 
