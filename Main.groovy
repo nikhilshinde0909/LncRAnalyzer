@@ -28,6 +28,9 @@ fastqInputFormat=fastqFormatPaired
 if(reads_R2=="") fastqInputFormat=fastqFormatSingle
 
 codeBase = file(bpipe.Config.config.script).parentFile.absolutePath
+npcts_venn_script = codeBase + "/scripts/NPCTS-Venn.R"
+lnc_venn_script = codeBase + "/scripts/Lnc-Venn.R"
+
 load codeBase+"/tools.groovy"
 
 load codeBase+"/stages/fastp.groovy"
