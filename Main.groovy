@@ -75,8 +75,8 @@ run_check = {
 nthreads=bpipe.Config.config.maxThreads
 
 run { set_input + run_check + 
-	quality_trimming.using(threads: nthreads) +
 	unmapped_reads_to_rRNAs.using(threads: nthreads) +
+	quality_trimming.using(threads: nthreads) +
 	genome_guided_assembly +
 	annotation_compare.using(threads: nthreads) +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
