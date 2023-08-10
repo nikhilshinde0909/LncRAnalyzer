@@ -31,7 +31,7 @@ map_reads_to_rRNAs = {
 
 unmapped_bam = {
         def bam_options=""
-        if(reads_R2="")
+        if(reads_R2=="")
 		bam_options=unmapped_bam_options
         else
 		bam_options=unmapped_bam_paired_options
