@@ -63,15 +63,11 @@ annotation_config = {
             echo 'GENOME_FA='$genome >> $output ;
             echo 'ORTHOLOG='$rel_sp_name >> $output ;
             echo 'NONCODING='$input3 >> $output ;
-            echo 'MIRNA='$mir >> $output ;
-            echo 'SNORNA='$sno >> $output ;
             echo '>'$rel_sp_name >> $output ;
             echo 'CODING='$input2 >> $output ;
             echo 'GENOME_FA='$genome_related_species >> $output ;
             echo 'ORTHOLOG='$org_name >> $output ;
             echo 'NONCODING='$input4 >> $output ;
-            echo 'MIRNA='$rel_mir >> $output ;
-            echo 'SNORNA='$rel_sno >> $output
 	"""
         }
     }
