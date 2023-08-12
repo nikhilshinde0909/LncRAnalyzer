@@ -6,7 +6,6 @@
 
 //Output directory
 unmapped_reads_dir="unmapped_reads"
-genome_guided_assembly_file=""
 
 //User specified read alignment to rRNAs
 build_rRNA_index = {
@@ -32,35 +31,35 @@ map_reads_to_rRNAs = {
 unmapped_bam = {
         def bam_options=""
         if(reads_R2=="")
-		bam_options=unmapped_bam_options
+                bam_options=unmapped_bam_options
         else
-		bam_options=unmapped_bam_paired_options
+            	bam_options=unmapped_bam_paired_options
         output.dir=unmapped_reads_dir
-        from(branch.name+".rRNA.bam") produce(branch.name+".u.bam"){
-              exec "$samtools view -@ $threads $bam_options $input -o $output && rm -rf $input"
+        produce(branch.name+".u.bam"){
+	exec "$samtools view -@ $threads $bam_options $input.rRNA.bam -o $output && rm $input.rRNA.bam"
         }
 }
 
 qsorted_bam = {
-	output.dir=unmapped_reads_dir
-	from(branch.name+".u.bam") produce(branch.name+".qsort.bam"){
-	      exec "$samtools sort -@ $threads -n -o $output $input && rm -rf $input"
+        output.dir=unmapped_reads_dir
+        produce(branch.name+".qsort.bam"){
+	exec "$samtools sort -@ $threads -n $input.u.bam -o $output && rm $input.u.bam"
 	}
 }
 
 unmapped_reads = {
-	output.dir=unmapped_reads_dir
-	if(reads_R2=="") 
-	produce(branch.name+".fastq"){
-	exec """
-	$bamToFastq -i $input.qsort.bam -fq $output && rm -rf $input.qsort.bam
-	"""
+        output.dir=unmapped_reads_dir
+        if(reads_R2=="")
+       	produce(branch.name+".fastq"){
+        exec """
+        $bamToFastq -i $input.qsort.bam-fq $output && rm $input.qsort.bam       
+        """
 	}
 	else
 	produce(branch.name+"_1.fastq",branch.name+"_2.fastq"){
-	exec """
-	$bamToFastq -i $input.qsort.bam -fq $output1 -fq2 $output2 && rm -rf $input.qsort.bam
-	"""
+        exec """
+        $bamToFastq -i $input.qsort.bam -fq $output1 -fq2 $output2 && rm $input.qsort.bam
+        """
 	}
 }
 
@@ -74,6 +73,5 @@ gzip_reads = {
     exec "gzip $input_gzip_options"
 }
 
-unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs  + 
-			unmapped_bam ] + qsorted_bam + 
-			fastqInputFormat * [unmapped_reads + gzip_reads] }
+unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs + unmapped_bam ]  +
+                        fastqInputFormat * [ qsorted_bam , unmapped_reads + gzip_reads ] }
