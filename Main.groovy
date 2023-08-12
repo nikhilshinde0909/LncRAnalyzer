@@ -17,7 +17,7 @@ shuffle_codpot_options="--mode=shuffle"
 intergenic_filter_options="--monoex=0 --size=200"
 intergenic_codpot_options="--mode=intergenic"
 CPAT_options=""
-slncky_options="--web"
+slncky_options=""
 
 // Input options
 fastqFormatPaired="%_*.fastq.gz"
