@@ -31,7 +31,7 @@ map_reads_to_rRNAs_and_unmapped_bam = {
     doc "Aligning reads to rRNAs using HISAT2"
     output.dir = unmapped_reads_dir
     
-    produce("${branch.name}.rRNA.u.bam", "${branch.name}.rRNA.summary") {
+    produce(branch.name+".rRNA.u.bam", branch.name+".rRNA.summary") {
         exec """
         $hisat2 $hisat2_options --summary-file $output2 -x $input.ht2.prefix.prefix $input_reads_option |
         $samtools view $bam_options -Su - |
