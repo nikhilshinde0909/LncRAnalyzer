@@ -66,5 +66,5 @@ gzip_reads = {
     exec "gzip $input_gzip_options"
 }
 
-unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs_and_unmapped_bam ]  +
-                        fastqInputFormat * [ unmapped_reads + gzip_reads ] }
+unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs_and_unmapped_bam + 
+                        unmapped_reads + gzip_reads ] }
