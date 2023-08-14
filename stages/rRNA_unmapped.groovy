@@ -45,13 +45,15 @@ unmapped_reads = {
         if(reads_R2=="")
        	produce(branch.name+".fastq"){
         exec """
-        $bamToFastq -i $input.rRNA.u.bam -fq $output && rm $input.rRNA.u.bam       
+        $bamToFastq -i $input.u.bam -fq $output ;
+	rm $input.u.bam      
         """
 	}
 	else
 	produce(branch.name+"_1.fastq",branch.name+"_2.fastq"){
         exec """
-        $bamToFastq -i $input.rRNA.u.bam -fq $output1 -fq2 $output2 && rm $input.rRNA.u.bam
+        $bamToFastq -i $input.u.bam -fq $output1 -fq2 $output2 ;
+	rm $input.u.bam
         """
 	}
 }
