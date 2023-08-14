@@ -43,15 +43,15 @@ map_reads_to_rRNAs_and_unmapped_bam = {
 unmapped_reads = {
         output.dir=unmapped_reads_dir
         if(reads_R2=="")
-       	produce(branch.name+".fastq"){
+       	from(branch.name+".rRNA.u.bam") produce(branch.name+".fastq"){
         exec """
-        $bamToFastq -i $input.u.bam -fq $output && rm $input.u.bam      
+        $bamToFastq -i $input -fq $output && rm $input      
         """
 	}
 	else
-	produce(branch.name+"_1.fastq",branch.name+"_2.fastq"){
+	from(branch.name+".rRNA.u.bam") produce(branch.name+"_1.fastq",branch.name+"_2.fastq"){
         exec """
-        $bamToFastq -i $input.u.bam -fq $output1 -fq2 $output2 && rm $input.u.bam
+        $bamToFastq -i $input -fq $output1 -fq2 $output2 && rm $input
         """
 	}
 }
