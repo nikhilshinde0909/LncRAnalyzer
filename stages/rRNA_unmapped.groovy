@@ -19,7 +19,7 @@ build_rRNA_index = {
 map_reads_to_rRNAs_and_unmapped_bam = {
     def input_reads_option = ""
     def bam_options = ""
-    
+	
     if (reads_R2 == "") {
         input_reads_option = "-U ${input}"
         bam_options = unmapped_bam_options
