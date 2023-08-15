@@ -40,7 +40,7 @@ map_reads_to_genome = {
 	             --summary-file $output2
 	             -x $input.ht2.prefix.prefix 
 		     $input_reads_option |
-		     $samtools view -Su - | $samtools sort - -o $output1
+		     $samtools view -Su - | $samtools sort -n - -o $output1
 	   """
 	  }
 }
