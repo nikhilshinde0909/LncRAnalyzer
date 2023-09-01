@@ -10,9 +10,9 @@ fastp_dir="fastp"
 FastP = {
     def input_fastq_options = ""
     if (reads_R2 == "") {
-        input_fastq_options = "-i " + unmapped_reads_dir + "/" + branch.name + ".fastq.gz"
+        input_fastq_options = "-i " + input
     } else {
-	input_fastq_options = "-i " + unmapped_reads_dir + "/" + branch.name + "_1.fastq.gz" + " -I " + unmapped_reads_dir + "/" + branch.name + "_2.fastq.gz"
+	input_fastq_options = "-i " + input1 + " -I " + input2
     }
     output.dir = fastp_dir
     if (reads_R2 == "") {
