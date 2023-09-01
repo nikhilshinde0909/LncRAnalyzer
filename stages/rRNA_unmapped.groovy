@@ -21,10 +21,10 @@ map_reads_to_rRNAs_and_unmapped_bam = {
     def bam_options = ""
 	
     if (reads_R2 == "") {
-        input_reads_option = "-U ${input}"
+        input_reads_option = "-U "+fastp_dir+"/"+branch.name+".fastq.gz"
         bam_options = unmapped_bam_options
     } else {
-        input_reads_option = "-1 ${input1} -2 ${input2}"
+        input_reads_option = "-1 "+fastp_dir+"/"+branch.name+"_1.fastq.gz"+" -2 "+fastp_dir+"/"+branch.name+"_2.fastq.gz"
         bam_options = unmapped_bam_paired_options
     }
     
