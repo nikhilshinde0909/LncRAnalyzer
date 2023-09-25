@@ -33,7 +33,7 @@ map_reads_to_rRNAs_and_unmapped_bam = {
     
     produce(branch.name+".rRNA.u.bam", branch.name+".rRNA.summary") {
         exec """
-        $hisat2 $hisat2_options --summary-file $output2 -x $input.ht2.prefix.prefix $input_reads_option |
+        $hisat2 --summary-file $output2 -x $input.ht2.prefix.prefix $input_reads_option |
         $samtools view $bam_options -Su - |
         $samtools sort -n - -o $output1
         """
