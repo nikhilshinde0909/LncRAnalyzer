@@ -6,7 +6,7 @@
 VERSION="1.00"
 
 //option strings to pass to tools
-hisat2_options=""
+hisat2_options="--mp 2"
 stringtie_options="-m 200 -a 10 --conservative -g 50 -u -c 3"
 stringtie_merge_options="-m 200 -c 3 -T 1"
 gffread_options="-l 200 -U -T"
