@@ -3,7 +3,7 @@ library(tidyverse)
 
 # Check if the required number of arguments is provided
 if (length(commandArgs(trailingOnly = TRUE)) != 4) {
-  cat("Usage: Rscript script.R FEELnc_file CPAT_file CPC2_file RNAsamba_file\n")
+  cat("Usage: Rscript Lnc_Intersect.R FEELnc_file CPAT_file CPC2_file RNAsamba_file\n")
   quit(save = "no", status = 1)
 }
 
