@@ -2,8 +2,8 @@ library(dplyr)
 library(tidyverse)
 
 # Check if the required number of arguments is provided
-if (length(commandArgs(trailingOnly = TRUE)) != 4) {
-  cat("Usage: Rscript Lnc_Intersect.R FEELnc_file CPAT_file CPC2_file RNAsamba_file\n")
+if (length(commandArgs(trailingOnly = TRUE)) != 5) {
+  cat("Usage: Rscript Lnc_Intersect.R FEELnc_file CPAT_file CPC2_file RNAsamba_file output_file\n")
   quit(save = "no", status = 1)
 }
 
@@ -12,6 +12,7 @@ FEELnc_file <- commandArgs(trailingOnly = TRUE)[1]
 CPAT_file <- commandArgs(trailingOnly = TRUE)[2]
 CPC2_file <- commandArgs(trailingOnly = TRUE)[3]
 RNAsamba_file <- commandArgs(trailingOnly = TRUE)[4]
+output_file <- commandArgs(trailingOnly = TRUE)[5] 
 
 # Read data from input files
 FEELnc <- read.table(FEELnc_file, header = FALSE, sep = '\t')
@@ -27,5 +28,4 @@ data <- list(FEELnc, CPAT, CPC2, RNAsamba) %>%
 data <- data[!duplicated(data$V1),]
 
 # Write the result to an output file
-output_file <- 'LncRAnalyzer-Lncs-intersect.txt'
 write.table(data, output_file, row.names = FALSE, col.names = FALSE, sep = '\t', quote = FALSE)
