@@ -42,11 +42,18 @@ npcts_intersect = {
 	}
 }
 
-final_lnc_gtf = {
+final_ntpc_gtf = {
 	output.dir=summary_dir
 	from("LncRAnalyzer-NPCTs-intersect.txt") produce("LncRAnalyzer-NPCTs-intersect.gtf") {
 	exec "cat ${intergenic_dir}/feelnc_intergenic.codpot.lncRNA.gtf ${shuffle_dir}/feelnc_shuffle.codpot.lncRNA.gtf | sort -u | grep -w -f $input > $output"
 	}
 }
 
-LncRAnalyzer_summary = segment {get_FEELnc_results + lnc_venn + npcts_venn + lnc_intersect + npcts_intersect + final_lnc_gtf}
+final_lncs_gtf = {
+	output.dir=summary_dir
+	from("LncRAnalyzer-Lncs-intersect.txt") produce("LncRAnalyzer-Lncs-intersect.gtf") {
+	exec "cat ${intergenic_dir}/feelnc_intergenic.codpot.lncRNA.gtf ${shuffle_dir}/feelnc_shuffle.codpot.lncRNA.gtf | sort -u | grep -w -f $input > $output"
+	}
+}
+
+LncRAnalyzer_summary = segment {get_FEELnc_results + lnc_venn + npcts_venn + lnc_intersect + npcts_intersect + final_lncs_gtf + final_ntpc_gtf}
