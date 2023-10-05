@@ -19,7 +19,7 @@ CPC2 <- read.table(CPC2_file, header = FALSE, sep = '\t')
 RNAsamba <- read.table(RNAsamba_file, sep = '\t', header = FALSE)
 
 # Combine data using inner joins
-data <- list(FEELnc, CPAT, CPC2, RNAsamba) %>%
+data <- list(CPAT, CPC2, RNAsamba) %>%
   reduce(inner_join)
 
 # Remove duplicates based on column V1
