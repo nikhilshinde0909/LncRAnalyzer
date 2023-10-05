@@ -31,7 +31,7 @@ if(reads_R2=="") fastqInputFormat=fastqFormatSingle
 codeBase = file(bpipe.Config.config.script).parentFile.absolutePath
 npcts_venn_script = codeBase + "/scripts/NPCTS-Venn.R"
 lnc_venn_script = codeBase + "/scripts/Lnc-Venn.R"
-lnc_intersect_script = codeBase + "/scripts/Lnc_Intersect.R"
+lnc_intersect_script = codeBase + "/scripts/Lnc-Intersect.R"
 npct_intersect_script = codeBase + "/scripts/NPCTs-Intersect.R"
 
 load codeBase+"/tools.groovy"
