@@ -24,7 +24,7 @@ write.table(data,'LncRAnalyzer-summary/LncRAnalyzer-Lncs.TSV', row.names = F, co
             sep = '\t', quote = F)
 
 # Colors
-myCol <- brewer.pal(8, "Darl2")
+myCol <- brewer.pal(8, "Dark2")
 
 # Venn
 data1 <- list('FEELnc'=  FEELnc$V1,
