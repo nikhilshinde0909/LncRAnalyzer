@@ -28,4 +28,19 @@ npcts_venn = {
 	}
 }
 
-LncRAnalyzer_summary = segment {get_FEELnc_results + lnc_venn + npcts_venn}
+lnc_intersect = {
+	output.dir=summary_dir
+	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list") produce("LncRAnalyzer-lnc_venn.log") {
+	exec "$Rscript $lnc_intersect_script $input1 $input2 $input3 $input4 > $output"
+	}
+} 
+
+npcts_intersect = {
+	output.dir=summary_dir
+	from("final_NPCTs-CPAT.list","final_NPCTs-cpc2.list","final_NPCTs-rnasamba.list") produce("LncRAnalyzer-NPCTs-Venn.log") {
+	exec "$Rscript $npct_intersect_script $input1 $input2 $input3 > $output"
+	}
+}
+
+
+LncRAnalyzer_summary = segment {get_FEELnc_results + lnc_venn + npcts_venn + lnc_intersect + npcts_intersect}
