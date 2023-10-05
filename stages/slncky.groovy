@@ -9,16 +9,12 @@ slncky_dir="slncky_out"
 
 ref_genome_bed = {
 	output.dir=slncky_dir
-	produce("Ref_genome.bed","Rel_ref_genome.bed","Ref_genome.nc.bed","Rel_ref_genome.nc.bed"){
+	produce("Ref_genome.bed","Rel_ref_genome.bed"){
 	exec """
 	$gffread $annotation --bed -o ${output.dir}/temp.bed ;
 	cut -f1-12 ${output.dir}/temp.bed > $output1 && rm ${output.dir}/temp.bed ;
 	$gffread $annotation_related_species --bed -o ${output.dir}/temp1.bed ;
         cut -f1-12 ${output.dir}/temp1.bed > $output2 && rm ${output.dir}/temp1.bed ;
-        $gffread $noncoding --bed -o ${output.dir}/temp.bed ;
-        cut -f1-12 ${output.dir}/temp.bed > $output3 && rm ${output.dir}/temp.bed ;
-        $gffread $rel_noncoding --bed -o ${output.dir}/temp1.bed ;
-        cut -f1-12 ${output.dir}/temp1.bed > $output4 && rm ${output.dir}/temp1.bed 
 	"""
 	  }
 }
@@ -36,7 +32,7 @@ fasta_index = {
 
 annotation_config = {
     output.dir = slncky_dir
-    from("Ref_genome.bed","Rel_ref_genome.bed","Ref_genome.nc.bed","Rel_ref_genome.nc.bed") produce("annotation.config") {
+    from("Ref_genome.bed","Rel_ref_genome.bed") produce("annotation.config") {
         if (liftover != "") {
             exec """
             echo '>'$org_name >> $output ;
@@ -44,7 +40,7 @@ annotation_config = {
             echo 'GENOME_FA='$genome >> $output ;
             echo 'ORTHOLOG='$rel_sp_name >> $output ;
             echo 'LIFTOVER='$liftover >> $output ;
-            echo 'NONCODING='$input3 >> $output ;
+            echo 'NONCODING='$noncoding >> $output ;
             echo 'MIRNA='$mir >> $output ;
             echo 'SNORNA='$sno >> $output ;
             echo '>'$rel_sp_name >> $output ;
@@ -52,7 +48,7 @@ annotation_config = {
             echo 'GENOME_FA='$genome_related_species >> $output ;
             echo 'ORTHOLOG='$org_name >> $output ;
             echo 'LIFTOVER='$rel_liftover >> $output ;
-            echo 'NONCODING='$input4 >> $output ;
+            echo 'NONCODING='$rel_noncoding >> $output ;
             echo 'MIRNA='$rel_mir >> $output ;
             echo 'SNORNA='$rel_sno >> $output
             """
@@ -62,12 +58,10 @@ annotation_config = {
             echo 'CODING='$input1 >> $output ;
             echo 'GENOME_FA='$genome >> $output ;
             echo 'ORTHOLOG='$rel_sp_name >> $output ;
-            echo 'NONCODING='$input3 >> $output ;
             echo '>'$rel_sp_name >> $output ;
             echo 'CODING='$input2 >> $output ;
             echo 'GENOME_FA='$genome_related_species >> $output ;
             echo 'ORTHOLOG='$org_name >> $output ;
-            echo 'NONCODING='$input4 >> $output ;
 	"""
         }
     }
