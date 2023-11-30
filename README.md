@@ -35,7 +35,7 @@ mamba env create -f cpc2-cpat-slncky.yml
 
 6.Create environment for RNAsamba
 ```
-mamba create -n rnasamba -c bioconda rnasamba
+mamba env create -f rnasamba.yml
 ```
 
 7. Add the path of conda environments and installed softwares in the file named tools.groovy
