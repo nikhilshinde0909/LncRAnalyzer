@@ -52,7 +52,7 @@ python check_ensembl.py org_name
 eg. python find_species_in_ensembl.py Sorghum
 > sbicolor
 python ensembl.py org_name_in_ensembl
-eg. python ensembl.py sbicolor
+eg. python download_datasets_ensembl.py sbicolor
 > Ensembl version 56 <- download the datasets
 ```
 
