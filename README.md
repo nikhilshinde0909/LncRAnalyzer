@@ -49,7 +49,7 @@ Copy your RNA-seq reads (.fastq.gz), rRNA sequences (.fa), Reference genomes (.f
 If you don't have reference genome, annotations and rRNA sequence information; you can download the same with script provided with pipeline as follows
 ```
 python check_ensembl.py org_name
-eg. python check_ensembl.py Sorghum
+eg. python find_species_in_ensembl.py Sorghum
 > sbicolor
 python ensembl.py org_name_in_ensembl
 eg. python ensembl.py sbicolor
