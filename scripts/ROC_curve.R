@@ -1,41 +1,56 @@
-setwd('/home/mpilab/ROC_curve/lnc_ROC/')
-
-total <- read.table('total-lnc.codpot.txt', header = F, sep = '\t')
-colnames(total) <- c("Gene","CodPot")
-total <- total %>% group_by(Gene) %>% summarise(CodPot=paste0(mean(CodPot)))
-rnasamba <- read.table('final_lnc_RNAs-rnasamba.list', header = F, sep = '\t')
-colnames(rnasamba) <- 'Gene'
-rnasamba$RNAsamba <- 1
-
-cpat <- read.table('final_lnc_RNAs-CPAT.list', header = F, sep = '\t')
-colnames(cpat) <- 'Gene'
-cpat$CPAT <- 1
-
-cpc2 <- read.table('final_lnc_RNAs-cpc2.list', header = F, sep = '\t')
-colnames(cpc2) <- 'Gene'
-cpc2$CPC2 <- 1
-
-feelnc <- read.table('FEELnc_total.lnc.list', header = F, sep = '\t')
-colnames(feelnc) <- 'Gene'
-feelnc$FEELnc <- 1
-
+#!/usr/bin/env Rscript
 library(dplyr)
 library(tidyverse)
+cutoff=0.5
 
-data <- list(total,rnasamba,feelnc,cpc2,cpat) %>% reduce(left_join)
-data[is.na(data)] <- 0
-rnasamba <- data %>% select(Gene,CodPot,RNAsamba)
-colnames(rnasamba)[3] <- 'Rank'
+# Get command-line arguments
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) < 5) {
+  stop("Usage: ROC_curve.R Lnc-intersect FEELnc_codpot CPAT_codpot CPC2_codpot RNAsamba_codpot")
+}
 
-feelnc <- data %>% select(Gene,CodPot,FEELnc)
-colnames(feelnc)[3] <- 'Rank'
+intersect <- read.table(args[1], 
+                        header = F, sep = '\t')
+colnames(intersect) <- 'lncRNA'
+intersect$Label <- 1
+# FEELnc
+FEELnc <- read.table(args[2], header = F, sep = '\t')
+colnames(FEELnc) <- c('lncRNA', 'CodPot')
+FEELnc <- FEELnc[FEELnc$CodPot < cutoff,]
+FEELnc$CodPot <- as.numeric(FEELnc$CodPot)
+FEELnc <- FEELnc[!duplicated(FEELnc$lncRNA),]
 
-cpc2 <- data %>% select(Gene,CodPot,CPC2)
-colnames(cpc2)[3] <- 'Rank'
+#CPAT
+CPAT <- read.table(args[3], header = T, sep = '\t')
+colnames(CPAT) <- c('lncRNA', 'CodPot')
+CPAT <- CPAT[CPAT$CodPot < cutoff,]
+CPAT$CodPot <- as.numeric(CPAT$CodPot)
 
-cpat <- data %>% select(Gene,CodPot,CPAT)
-colnames(cpat)[3] <- 'Rank'
-##
+# CPC2
+CPC2 <- read.table(args[4], header = T, sep = '\t')
+colnames(CPC2) <- c('lncRNA', 'CodPot')
+CPC2 <- CPC2[CPC2$CodPot < cutoff,]
+CPC2$CodPot <- as.numeric(CPC2$CodPot)
+
+# RNAsamba
+RNAsamba <- read.table(args[5], header = T, sep = '\t')
+colnames(RNAsamba) <- c('lncRNA', 'CodPot')
+RNAsamba <- RNAsamba[RNAsamba$CodPot < cutoff,]
+RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
+
+# Assign lebels
+FEELnc <- list(FEELnc,intersect) %>% reduce(left_join)
+FEELnc[is.na(FEELnc)] <- 0
+
+CPC2 <- list(CPC2,intersect) %>% reduce(left_join)
+CPC2[is.na(CPC2)] <- 0
+
+CPAT <- list(CPAT,intersect) %>% reduce(left_join)
+CPAT[is.na(CPAT)] <- 0
+
+RNAsamba <- list(RNAsamba,intersect) %>% reduce(left_join)
+RNAsamba[is.na(RNAsamba)] <- 0
+
 
 #Calculate the rates
 rate = function(dfs_final){
@@ -43,20 +58,20 @@ rate = function(dfs_final){
   dfs_final = dfs_final[order(dfs_final$CodPot),]
   
   ## Cumulative sum
-  dfs_final$cumtp=cumsum(dfs_final$Rank)
-  dfs_final$cumtn=cumsum(1 - dfs_final$Rank)
+  dfs_final$cumtp=cumsum(dfs_final$Label)
+  dfs_final$cumtn=cumsum(1 - dfs_final$Label)
   
   ## Normalize
-  dfs_final$cumtp=dfs_final$cumtp/sum(dfs_final$Rank)
-  dfs_final$cumtn=dfs_final$cumtn/sum(1 - dfs_final$Rank)
+  dfs_final$cumtp=dfs_final$cumtp/sum(dfs_final$Label)
+  dfs_final$cumtn=dfs_final$cumtn/sum(1 - dfs_final$Label)
   return(dfs_final)
 }
 
 ## Get values
-final_rnasamba <- rate(rnasamba)
-final_feelnc <- rate(feelnc)
-final_cpc2 <- rate(cpc2)
-final_cpat <- rate(cpat)
+final_rnasamba <- rate(RNAsamba)
+final_feelnc <- rate(FEELnc)
+final_cpc2 <- rate(CPC2)
+final_cpat <- rate(CPAT)
 
 final_rnasamba$Method <- 'RNAsamba'
 final_cpat$Method <- 'CPAT'
@@ -66,17 +81,13 @@ all <- bind_rows(final_rnasamba, final_feelnc, final_cpc2, final_cpat)
 
 #Make the plot
 library(ggplot2)
-cbPalette<-c("#79097e","#003d18","#ff8000","#f0006b")
+cbPalette<-c("#003d18","#000080","#cc0000","#ff8000")
 p = ggplot(data=all,aes(x=cumtn,y=cumtp,group=Method,colour=Method)) + geom_line() 
-p = p + geom_abline(intercept=0,slope=1,linetype=2) + xlim(0,1) +ylim(0,1) + theme_bw()
-p = p + xlab('False Positive Rate') + ylab('True Positive Rate') + theme(text = element_text(size=12))
+p = p + geom_abline(intercept=0,slope=1,linetype=1) + xlim(0,1) +ylim(0,1) + theme_bw()
+p = p + xlab('False Positive Rate') + ylab('True Positive Rate') + theme(text = element_text(size=18))
 p = p + scale_colour_manual(values=cbPalette)
-p=p+theme(legend.position=c(0.8,0.2))
+p=p+theme(legend.position=c(0.72,0.2))
 
-tiff('ROC.tiff', width = 15, height = 12, units = 'cm', res = 400)
-p + labs(colour="lncRNAs detection \n methods")
-dev.off()
-
-png('ROC.png', width = 15, height = 12, units = 'cm', res = 600)
+tiff('Lnc_ROC.tiff', width = 15, height = 15, units = 'cm', res = 400)
 p + labs(colour="lncRNAs detection \n methods")
 dev.off()
