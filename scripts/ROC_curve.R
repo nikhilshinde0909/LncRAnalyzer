@@ -88,6 +88,6 @@ p = p + xlab('False Positive Rate') + ylab('True Positive Rate') + theme(text = 
 p = p + scale_colour_manual(values=cbPalette)
 p=p+theme(legend.position=c(0.72,0.2))
 
-tiff('Lnc_ROC.tiff', width = 15, height = 15, units = 'cm', res = 400)
+tiff('LncRAnalyzer-summary/Lnc_ROC.tiff', width = 15, height = 15, units = 'cm', res = 400)
 p + labs(colour="lncRNAs detection \n methods")
 dev.off()
