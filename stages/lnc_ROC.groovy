@@ -56,5 +56,5 @@ ROC_curve = {
 	}
 }
 
-LncRAnalyzer_ROC = {FEELnc_shuffle_codpot + FEELnc_intergenic_codpot + FEELnc_codpot + 
+LncRAnalyzer_ROC = segment{FEELnc_shuffle_codpot + FEELnc_intergenic_codpot + FEELnc_codpot + 
 		CPC2_codpot + CPAT_codpot + RNAsamba_codpot + RNAsamba_codpot + ROC_curve}
