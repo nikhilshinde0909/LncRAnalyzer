@@ -10,7 +10,7 @@ summary_dir="LncRAnalyzer-summary"
 get_FEELnc_results = {
 	output.dir=intergenic_dir
 	from("FEELnc_intergenic_lncRNAs.fa","FEELnc_mRNA_spliced_lncRNAs.fa") produce("FEELnc_out-lnc.list") {
-	exec "grep '>' $input1 $input2 |sed 's/>//g'|sort -u|cut -d ':' -f 2|cat > $output"
+	exec "cat $input1 $input2 |grep '>' |sed 's/>//g'|sort -u > $output"
 	}
 }
 
