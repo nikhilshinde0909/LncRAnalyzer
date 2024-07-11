@@ -36,6 +36,6 @@ data1 <- list('FEELnc'=  FEELnc$V1,
 
 tiff("LncRAnalyzer-summary/LncRAnalyzer-Lncs-Venn.tiff", units="cm", width = 15,
      height=12, res=300)
-venn(data1, ilcs = 1.0, sncs = 1.1, ilabels = TRUE, ellipse = TRUE, opacity = 0.30, ggplot = TRUE, box = FALSE, 
+venn(data1, ilcs = 1.0, sncs = 1.1, ilabels = 'counts', ellipse = TRUE, opacity = 0.30, ggplot = TRUE, box = FALSE, 
      zcolor = myCol, cex = 0.8)
 dev.off()
