@@ -51,7 +51,7 @@ RNAsamba_codpot = {
 
 ROC_curve = {
 	output.dir=summary_dir
-	from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV",""RNAsamba_codpot.TSV) produce("LncRAnalyzer-ROC.log") {
+	from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
 	exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 > $output"
 	}
 }
