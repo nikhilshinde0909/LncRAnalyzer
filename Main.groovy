@@ -33,7 +33,7 @@ npcts_venn_script = codeBase + "/scripts/NPCTs-Venn.R"
 lnc_venn_script = codeBase + "/scripts/Lnc-Venn.R"
 lnc_intersect_script = codeBase + "/scripts/Lnc-Intersect.R"
 npct_intersect_script = codeBase + "/scripts/NPCTs-Intersect.R"
-lnc_roc_script = codeBase + "/scripts/NPCTs-Intersect.R"
+lnc_roc_script = codeBase + "/scripts/ROC_curve.R"
 
 load codeBase+"/tools.groovy"
 
