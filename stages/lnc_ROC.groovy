@@ -5,7 +5,7 @@
  ****************************************************************/
 
 // Output directory
-roc_dir="LncRAnalyzer-summary"
+summary_dir="LncRAnalyzer-summary"
 
 shuffle_CPS = {
     output.dir=shuffle_dir
@@ -22,35 +22,35 @@ intergenic_CPS = {
 }
 
 FEELnc_CPS = {
-    output.dir=roc_dir
+    output.dir=summary_dir
     from("FEELnc_shuffle_codpot.TSV","FEELnc_intergenic_codpot.TSV") produce("FEELnc_codpot.TSV") {
         exec "cat $input1 $input2 > $output"
     }
 }
 
 CPC2_codpot = {
-    output.dir=roc_dir
+    output.dir=summary_dir
     from("Putative.lnc_NPCTs.cpc2.txt") produce("CPC2_codpot.TSV") {
         exec "sed 1,1d $input | cut -f 1,7 > $output"
     }
 }
 
 CPAT_codpot = {
-    output.dir=roc_dir
+    output.dir=summary_dir
     from("CPAT_output.TSV") produce("CPAT_codpot.TSV"){
         exec "sed 1,1d $input | cut -f 1,6 > $output"
     }
 }
 
 RNAsamba_codpot = {
-    output.dir=roc_dir
+    output.dir=summary_dir
     from("Putative_lnc_NPCTs.rnasamba.TSV") produce("RNAsamba_codpot.TSV"){
         exec "sed 1,1d $input | cut -f 1,2 > $output"
     }
 }
 
 ROC_curve = {
-    output.dir=roc_dir
+    output.dir=summary_dir
     from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
         exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 > $output"
     }
