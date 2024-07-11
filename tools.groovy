@@ -12,8 +12,9 @@ bamToFastq="/opt/data/home/nikhil/mambaforge/bin/bamToFastq"
 fastp="/opt/data/home/nikhil/mambaforge/bin/fastp"
 seqtk="/opt/data/home/nikhil/mambaforge/bin/seqtk"
 python3="/opt/data/home/nikhil/mambaforge/bin/python3"
+Rscript="/opt/data/home/nikhil/mambaforge/bin/Rscript"
 
-// Path to PLEK
+// Path to PLEK Optional
 PLEK="/opt/data/home/nikhil/mambaforge/bin/PLEK.py"
 PLEKModelling="/opt/data/home/nikhil/mambaforge/bin/PLEKModelling.py"
 
