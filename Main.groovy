@@ -50,6 +50,7 @@ load codeBase+"/stages/rnasamba.groovy"
 load codeBase+"/stages/FEELnc_shuffle.groovy"
 load codeBase+"/stages/FEELnc_intergenic.groovy"
 load codeBase+"/stages/summary.groovy"
+load codeBase+"/stages/lnc_ROC.groovy"
 
 /******************* Here are the pipeline stages **********************/
 
