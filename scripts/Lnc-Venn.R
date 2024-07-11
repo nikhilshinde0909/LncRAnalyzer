@@ -1,93 +1,40 @@
 #!/usr/bin/env Rscript
-library(dplyr)
+library(venn)
+library(RColorBrewer)
+library(conflicted)
 library(tidyverse)
-cutoff=0.5
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
 
 # Get command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) < 5) {
-  stop("Usage: ROC_curve.R Lnc-intersect FEELnc_codpot CPAT_codpot CPC2_codpot RNAsamba_codpot")
+if (length(args) < 4) {
+  stop("Usage: Lnc-venn.R CPAT_list CPC2_list RNAsamba_list FEELnc_list")
 }
 
-intersect <- read.table(args[1], 
-                        header = F, sep = '\t')
-colnames(intersect) <- 'lncRNA'
-intersect$Label <- 1
-# FEELnc
-FEELnc <- read.table(args[2], header = F, sep = '\t')
-colnames(FEELnc) <- c('lncRNA', 'CodPot')
-FEELnc <- FEELnc[FEELnc$CodPot < cutoff,]
-FEELnc$CodPot <- as.numeric(FEELnc$CodPot)
-FEELnc <- FEELnc[!duplicated(FEELnc$lncRNA),]
+# Read data from input files
+CPAT <- read.table(args[1], header = FALSE, sep = '\t')
+CPC2 <- read.table(args[2], header = FALSE, sep = '\t')
+RNAsamba <- read.table(args[3], header = FALSE, sep = '\t')
+FEELnc <- read.table(args[4], header = FALSE, sep = '\t')
 
-#CPAT
-CPAT <- read.table(args[3], header = T, sep = '\t')
-colnames(CPAT) <- c('lncRNA', 'CodPot')
-CPAT <- CPAT[CPAT$CodPot < cutoff,]
-CPAT$CodPot <- as.numeric(CPAT$CodPot)
+# Results
+data <- data.frame("Lnc RNA Prediction Method"=c("FEELnc", "RNAsamba", "CPAT", "CPC2"), 
+                   "Number of Predicted Lncs"=c(length(FEELnc$V1),length(RNAsamba$V1), length(CPAT$V1), length(CPC2$V1)))
+write.table(data,'LncRAnalyzer-summary/LncRAnalyzer-Lncs.TSV', row.names = F, col.names = T,
+            sep = '\t', quote = F)
 
-# CPC2
-CPC2 <- read.table(args[4], header = T, sep = '\t')
-colnames(CPC2) <- c('lncRNA', 'CodPot')
-CPC2 <- CPC2[CPC2$CodPot < cutoff,]
-CPC2$CodPot <- as.numeric(CPC2$CodPot)
+# Colors
+myCol <- brewer.pal(8, "Dark2")
 
-# RNAsamba
-RNAsamba <- read.table(args[5], header = T, sep = '\t')
-colnames(RNAsamba) <- c('lncRNA', 'CodPot')
-RNAsamba <- RNAsamba[RNAsamba$CodPot < cutoff,]
-RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
+# Venn
+data1 <- list('FEELnc'=  FEELnc$V1,
+              'CPAT' = CPAT$V1,
+              'CPC2' =  CPC2$V1,
+              'RNAsamba'=RNAsamba$V1)
 
-# Assign lebels
-FEELnc <- list(FEELnc,intersect) %>% reduce(left_join)
-FEELnc[is.na(FEELnc)] <- 0
-
-CPC2 <- list(CPC2,intersect) %>% reduce(left_join)
-CPC2[is.na(CPC2)] <- 0
-
-CPAT <- list(CPAT,intersect) %>% reduce(left_join)
-CPAT[is.na(CPAT)] <- 0
-
-RNAsamba <- list(RNAsamba,intersect) %>% reduce(left_join)
-RNAsamba[is.na(RNAsamba)] <- 0
-
-
-#Calculate the rates
-rate = function(dfs_final){
-  ## order
-  dfs_final = dfs_final[order(dfs_final$CodPot),]
-  
-  ## Cumulative sum
-  dfs_final$cumtp=cumsum(dfs_final$Label)
-  dfs_final$cumtn=cumsum(1 - dfs_final$Label)
-  
-  ## Normalize
-  dfs_final$cumtp=dfs_final$cumtp/sum(dfs_final$Label)
-  dfs_final$cumtn=dfs_final$cumtn/sum(1 - dfs_final$Label)
-  return(dfs_final)
-}
-
-## Get values
-final_rnasamba <- rate(RNAsamba)
-final_feelnc <- rate(FEELnc)
-final_cpc2 <- rate(CPC2)
-final_cpat <- rate(CPAT)
-
-final_rnasamba$Method <- 'RNAsamba'
-final_cpat$Method <- 'CPAT'
-final_feelnc$Method <- 'FEELnc'
-final_cpc2$Method <- 'CPC2'
-all <- bind_rows(final_rnasamba, final_feelnc, final_cpc2, final_cpat)
-
-#Make the plot
-library(ggplot2)
-cbPalette<-c("#003d18","#000080","#cc0000","#ff8000")
-p = ggplot(data=all,aes(x=cumtn,y=cumtp,group=Method,colour=Method)) + geom_line() 
-p = p + geom_abline(intercept=0,slope=1,linetype=1) + xlim(0,1) +ylim(0,1) + theme_bw()
-p = p + xlab('False Positive Rate') + ylab('True Positive Rate') + theme(text = element_text(size=18))
-p = p + scale_colour_manual(values=cbPalette)
-p=p+theme(legend.position=c(0.72,0.2))
-
-tiff('Lnc_ROC.tiff', width = 15, height = 15, units = 'cm', res = 400)
-p + labs(colour="lncRNAs detection \n methods")
+tiff("LncRAnalyzer-summary/LncRAnalyzer-Lncs-Venn.tiff", units="cm", width = 15,
+     height=12, res=300)
+venn(data1, ilcs = 1.0, sncs = 1.1, ilabels = 'counts' , ellipse = TRUE, opacity = 0.30, ggplot = TRUE, box = FALSE, 
+     zcolor = myCol, cex = 0.8)
 dev.off()
