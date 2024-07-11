@@ -93,5 +93,5 @@ run { set_input + run_check +
 	shuffle.using(threads: nthreads) +
 	intergenic.using(threads: nthreads) +
 	LncRAnalyzer_summary + 
-	LncRAnalyzer_ROC
-	}
+	LncRAnalyzer_ROC 
+}
