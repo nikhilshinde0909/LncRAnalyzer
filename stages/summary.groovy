@@ -37,7 +37,7 @@ lnc_intersect = {
 
 npcts_intersect = {
 	output.dir=summary_dir
-	from("final_NPCTs-CPAT.list","final_NPCTs-cpc2.list","final_NPCTs-rnasamba.list") produce("LncRAnalyzer-NPCTs-intersect.txt") {
+	from("final_NPCTs-CPAT.list","final_NPCTs-cpc2.list","final_NPCTs-rnasamba.list","final_NPCTs-lgc.list") produce("LncRAnalyzer-NPCTs-intersect.txt") {
 	exec "$Rscript $npct_intersect_script $input1 $input2 $input3 $output"
 	}
 }
