@@ -88,11 +88,11 @@ run { set_input + run_check +
 	annotation_compare.using(threads: nthreads) +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
 	cpat_based_coding_potentials +
-	rnasamba_train_and_classify +
+	coding_potential_calculations +
 	lgc_based_coding_potentials +
 	slncky_run.using(threads: nthreads) +
 	//plek_based_coding_potentials.using(threads: nthreads) +
-	coding_potential_calculations +
+	rnasamba_train_and_classify +
 	shuffle.using(threads: nthreads) +
 	intergenic.using(threads: nthreads) +
 	LncRAnalyzer_summary + 
