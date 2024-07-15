@@ -35,6 +35,13 @@ CPC2_codpot = {
     }
 }
 
+lgc_codpot = {
+    output.dir=summary_dir
+    from("Putative.lnc_NPCTs.lgc.txt") produce("lgc_codpot.TSV") {
+        exec "sed 1,1d $input | cut -f 1,4 > $output"
+    }
+}
+
 CPAT_codpot = {
     output.dir=summary_dir
     from("CPAT_output.TSV") produce("CPAT_codpot.TSV"){
@@ -51,12 +58,12 @@ RNAsamba_codpot = {
 
 ROC_curve = {
     output.dir=summary_dir
-    from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
-        exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 > $output"
+    from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV","lgc_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
+        exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 $input6 > $output"
     }
 }
 
 LncRAnalyzer_ROC = segment{
     shuffle_CPS + intergenic_CPS + FEELnc_CPS + 
-    CPC2_codpot + CPAT_codpot + RNAsamba_codpot + ROC_curve
+    CPC2_codpot + CPAT_codpot + RNAsamba_codpot + lgc_codpot + ROC_curve
 }
