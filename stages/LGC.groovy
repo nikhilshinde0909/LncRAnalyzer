@@ -10,7 +10,7 @@ lgc_dir="lgc_out"
 perform_lgc = {
 	output.dir=lgc_dir
 	from("Putative.lnc_NPCTs.fa") produce("Putative.lnc_NPCTs.lgc.txt"){
-	exec "$python2 $lgc -i $input -o $output"
+	exec "$python2 $lgc $input $output"
 	  }
 }
 
@@ -18,8 +18,8 @@ lgc_final_lnc_RNAs = {
 	output.dir=lgc_dir
 	from("Putative.lnc_NPCTs.lgc.txt") produce("final_lnc_RNAs-lgc.TSV","final_lnc_RNAs-lgc.list"){
 	exec """
-	grep -E -w 'noncoding' $input > $output1 ;
-	grep -E -w 'noncoding' $input|cut -f1 > $output2
+	grep -E -w 'Non-coding' $input > $output1 ;
+	grep -E -w 'Non-coding' $input|cut -f1 > $output2
 	"""
 	  }
 }
@@ -28,8 +28,8 @@ lgc_final_NPCTs = {
 	output.dir=lgc_dir
 	from("Putative.lnc_NPCTs.lgc.txt") produce("final_NPCTs-lgc.TSV","final_NPCTs-lgc.list"){
 	exec """
-	grep -E -w 'coding' $input > $output1 ;
-	grep -E -w 'coding' $input|cut -f1 > $output2
+	grep -E -w 'Coding' $input > $output1 ;
+	grep -E -w 'Coding' $input|cut -f1 > $output2
 	"""
 	  }
 }
