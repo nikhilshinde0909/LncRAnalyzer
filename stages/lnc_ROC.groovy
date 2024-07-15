@@ -38,7 +38,7 @@ CPC2_codpot = {
 lgc_codpot = {
     output.dir=summary_dir
     from("Putative.lnc_NPCTs.lgc.txt") produce("lgc_codpot.TSV") {
-        exec "sed 1,1d $input | cut -f 1,4 > $output"
+        exec "sed 1,11d $input | cut -f 1,4 > $output"
     }
 }
 
