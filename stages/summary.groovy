@@ -16,21 +16,21 @@ get_FEELnc_results = {
 
 lnc_venn = {
 	output.dir=summary_dir
-	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list") produce("LncRAnalyzer-lnc_venn.log") {
-	exec "$Rscript $lnc_venn_script $input1 $input2 $input3 $input4 > $output"
+	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list","final_lnc_RNAs-lgc.list") produce("LncRAnalyzer-lnc_venn.log") {
+	exec "$Rscript $lnc_venn_script $input1 $input2 $input3 $input4 $input5 > $output"
 	}
 } 
 
 npcts_venn = {
 	output.dir=summary_dir
-	from("final_NPCTs-CPAT.list","final_NPCTs-cpc2.list","final_NPCTs-rnasamba.list") produce("LncRAnalyzer-NPCTs-Venn.log") {
-	exec "$Rscript $npcts_venn_script $input1 $input2 $input3 > $output"
+	from("final_NPCTs-CPAT.list","final_NPCTs-cpc2.list","final_NPCTs-rnasamba.list","final_NPCTs-lgc.list") produce("LncRAnalyzer-NPCTs-Venn.log") {
+	exec "$Rscript $npcts_venn_script $input1 $input2 $input3 $input4 > $output"
 	}
 }
 
 lnc_intersect = {
 	output.dir=summary_dir
-	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list") produce("LncRAnalyzer-Lncs-intersect.txt") {
+	from("final_lnc_RNAs-CPAT.list","final_lnc_RNAs-cpc2.list","final_lnc_RNAs-rnasamba.list","FEELnc_out-lnc.list","final_lnc_RNAs-lgc.list") produce("LncRAnalyzer-Lncs-intersect.txt") {
 	exec "$Rscript $lnc_intersect_script $input1 $input2 $input3 $input4 $output"
 	}
 } 
