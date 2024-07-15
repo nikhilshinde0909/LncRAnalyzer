@@ -45,6 +45,7 @@ load codeBase+"/stages/merge_and_compare_annotations.groovy"
 load codeBase+"/stages/lnc_npc_transcript_filter.groovy"
 load codeBase+"/stages/CPC2.groovy"
 load codeBase+"/stages/CPAT.groovy"
+load codeBase+"/stages/LGC.groovy"
 load codeBase+"/stages/slncky.groovy"
 load codeBase+"/stages/PLEK.groovy"
 load codeBase+"/stages/rnasamba.groovy"
@@ -88,6 +89,7 @@ run { set_input + run_check +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
 	cpat_based_coding_potentials +
 	rnasamba_train_and_classify +
+	lgc_based_coding_potentials +
 	slncky_run.using(threads: nthreads) +
 	//plek_based_coding_potentials.using(threads: nthreads) +
 	coding_potential_calculations +
