@@ -5,8 +5,8 @@ cutoff=0.5
 
 # Get command-line arguments
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) < 5) {
-  stop("Usage: ROC_curve.R Lnc-intersect FEELnc_codpot CPAT_codpot CPC2_codpot RNAsamba_codpot")
+if (length(args) < 6) {
+  stop("Usage: ROC_curve.R Lnc-intersect FEELnc_codpot CPAT_codpot CPC2_codpot RNAsamba_codpot LGC_codpot")
 }
 
 intersect <- read.table(args[1], 
@@ -38,6 +38,12 @@ colnames(RNAsamba) <- c('lncRNA', 'CodPot')
 RNAsamba <- RNAsamba[RNAsamba$CodPot < cutoff,]
 RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
 
+# LGC
+LGC <- read.table(args[6], header = T, sep = '\t')
+colnames(LGC) <- c('lncRNA', 'CodPot')
+LGC <- LGC[LGC$CodPot < cutoff,]
+LGC$CodPot <- as.numeric(LGC$CodPot)
+
 # Assign lebels
 FEELnc <- list(FEELnc,intersect) %>% reduce(left_join)
 FEELnc[is.na(FEELnc)] <- 0
@@ -51,6 +57,8 @@ CPAT[is.na(CPAT)] <- 0
 RNAsamba <- list(RNAsamba,intersect) %>% reduce(left_join)
 RNAsamba[is.na(RNAsamba)] <- 0
 
+LGC <- list(LGC,intersect) %>% reduce(left_join)
+LGC[is.na(LGC)] <- 0
 
 #Calculate the rates
 rate = function(dfs_final){
@@ -72,16 +80,19 @@ final_rnasamba <- rate(RNAsamba)
 final_feelnc <- rate(FEELnc)
 final_cpc2 <- rate(CPC2)
 final_cpat <- rate(CPAT)
+final_lgc <- rate(LGC)
 
 final_rnasamba$Method <- 'RNAsamba'
 final_cpat$Method <- 'CPAT'
 final_feelnc$Method <- 'FEELnc'
 final_cpc2$Method <- 'CPC2'
-all <- bind_rows(final_rnasamba, final_feelnc, final_cpc2, final_cpat)
+final_lgc$Method <- 'LGC'
+
+all <- bind_rows(final_rnasamba, final_feelnc, final_cpc2, final_cpat,final_lgc)
 
 #Make the plot
 library(ggplot2)
-cbPalette<-c("#003d18","#000080","#cc0000","#ff8000")
+cbPalette<-c("#003d18","#000080","#cc0000","#ff8000","#8fce00")
 p = ggplot(data=all,aes(x=cumtn,y=cumtp,group=Method,colour=Method)) + geom_line() 
 p = p + geom_abline(intercept=0,slope=1,linetype=1) + xlim(0,1) +ylim(0,1) + theme_bw()
 p = p + xlab('False Positive Rate') + ylab('True Positive Rate') + theme(text = element_text(size=18))
