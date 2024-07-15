@@ -5,7 +5,7 @@ library(tidyverse)
 
 # Check if the required number of arguments is provided
 if (length(commandArgs(trailingOnly = TRUE)) != 5) {
-  cat("Usage: Rscript NPCTs-Intersect.R CPAT_file CPC2_file RNAsamba_file output_file\n")
+  cat("Usage: Rscript NPCTs-Intersect.R CPAT_file CPC2_file RNAsamba_file LGC_file output_file\n")
   quit(save = "no", status = 1)
 }
 
