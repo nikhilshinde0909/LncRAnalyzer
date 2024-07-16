@@ -64,6 +64,7 @@ LGC[is.na(LGC)] <- 0
 rate = function(dfs_final){
   ## order
   dfs_final = dfs_final[order(dfs_final$CodPot),]
+  dfs_final <- dfs_final[!duplicated(dfs_final$lncRNA),]
   
   ## Cumulative sum
   dfs_final$cumtp=cumsum(dfs_final$Label)
