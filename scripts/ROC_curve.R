@@ -43,6 +43,7 @@ LGC <- read.table(args[6], header = T, sep = '\t')
 colnames(LGC) <- c('lncRNA', 'CodPot')
 LGC <- LGC[LGC$CodPot < 0,]
 LGC$CodPot <- as.numeric(LGC$CodPot)
+LGC$CodPot <- LGC$CodPot * -1
 
 # Assign lebels
 FEELnc <- list(FEELnc,intersect) %>% reduce(left_join)
