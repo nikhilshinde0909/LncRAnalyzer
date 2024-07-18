@@ -41,7 +41,7 @@ RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
 # LGC
 LGC <- read.table(args[6], header = T, sep = '\t')
 colnames(LGC) <- c('lncRNA', 'CodPot')
-LGC <- LGC[LGC$CodPot < cutoff,]
+LGC <- LGC[LGC$CodPot < 0,]
 LGC$CodPot <- as.numeric(LGC$CodPot)
 
 # Assign lebels
