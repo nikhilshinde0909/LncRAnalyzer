@@ -42,6 +42,12 @@ RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
 LGC <- read.table(args[6], header = T, sep = '\t')
 colnames(LGC) <- c('lncRNA', 'CodPot')
 LGC$CodPot <- as.numeric(LGC$CodPot)
+normalize_min_max <- function(x, new_min = 0, new_max = 0.5) {
+  old_min <- min(x)
+  old_max <- max(x)
+  (new_min + (x - old_min) * (new_max - new_min) / (old_max - old_min))
+}
+LGC$CodPot <- normalize_min_max(LGC$CodPot)
 
 # Assign lebels
 FEELnc <- list(FEELnc,intersect) %>% reduce(left_join)
