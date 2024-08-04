@@ -51,7 +51,7 @@ CPAT_codpot = {
 
 RNAsamba_codpot = {
     output.dir=summary_dir
-    from("Putative_lnc_NPCTs.rnasamba.TSV") produce("RNAsamba_codpot.TSV"){
+    from("final_lnc_RNAs-rnasamba.TSV") produce("RNAsamba_codpot.TSV"){
         exec "sed 1,1d $input | cut -f 1,2 > $output"
     }
 }
