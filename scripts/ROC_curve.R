@@ -35,6 +35,7 @@ CPC2$CodPot <- as.numeric(CPC2$CodPot)
 # RNAsamba
 RNAsamba <- read.table(args[5], header = T, sep = '\t')
 colnames(RNAsamba) <- c('lncRNA', 'CodPot')
+RNAsamba <- RNAsamba[RNAsamba$CodPot < cutoff,]
 RNAsamba$CodPot <- as.numeric(RNAsamba$CodPot)
 
 # LGC
