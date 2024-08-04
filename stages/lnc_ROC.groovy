@@ -30,7 +30,7 @@ FEELnc_CPS = {
 
 CPC2_codpot = {
     output.dir=summary_dir
-    from("Putative.lnc_NPCTs.cpc2.txt") produce("CPC2_codpot.TSV") {
+    from("final_lnc_RNAs-cpc2.TSV") produce("CPC2_codpot.TSV") {
         exec "sed 1,1d $input | cut -f 1,7 > $output"
     }
 }
