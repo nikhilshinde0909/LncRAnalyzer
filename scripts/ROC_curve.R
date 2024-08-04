@@ -16,6 +16,7 @@ intersect$Label <- 1
 # FEELnc
 FEELnc <- read.table(args[2], header = F, sep = '\t')
 colnames(FEELnc) <- c('lncRNA', 'CodPot')
+FEELnc <- FEELnc[FEELnc$CodPot < cutoff,]
 FEELnc$CodPot <- as.numeric(FEELnc$CodPot)
 FEELnc <- FEELnc %>% group_by(lncRNA) %>% slice_min(CodPot)
 
@@ -28,6 +29,7 @@ CPAT$CodPot <- as.numeric(CPAT$CodPot)
 # CPC2
 CPC2 <- read.table(args[4], header = T, sep = '\t')
 colnames(CPC2) <- c('lncRNA', 'CodPot')
+CPC2 <- CPC2[CPC2$CodPot < cutoff,]
 CPC2$CodPot <- as.numeric(CPC2$CodPot)
 
 # RNAsamba
