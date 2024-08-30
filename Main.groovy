@@ -30,7 +30,6 @@ if(reads_R2=="") fastqInputFormat=fastqFormatSingle
 
 codeBase = file(bpipe.Config.config.script).parentFile.absolutePath
 lgc = codeBase + "/utils/lgc-1.0.py"
-// pfamscan = codeBase + "pfam_scan.py"
 npcts_venn_script = codeBase + "/scripts/NPCTs-Venn.R"
 lnc_venn_script = codeBase + "/scripts/Lnc-Venn.R"
 lnc_intersect_script = codeBase + "/scripts/Lnc-Intersect.R"
@@ -47,6 +46,7 @@ load codeBase+"/stages/lnc_npc_transcript_filter.groovy"
 load codeBase+"/stages/CPC2.groovy"
 load codeBase+"/stages/CPAT.groovy"
 load codeBase+"/stages/LGC.groovy"
+load codeBase+"/stages/pfamscan.groovy"
 load codeBase+"/stages/slncky.groovy"
 load codeBase+"/stages/PLEK.groovy"
 load codeBase+"/stages/rnasamba.groovy"
@@ -84,12 +84,13 @@ nthreads=bpipe.Config.config.maxThreads
 
 run { set_input + run_check + 
 	quality_trimming.using(threads: nthreads) +
-	unmapped_reads_to_rRNAs.using(threads: nthreads) +
+	//unmapped_reads_to_rRNAs.using(threads: nthreads) +
 	genome_guided_assembly +
 	annotation_compare.using(threads: nthreads) +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
 	cpat_based_coding_potentials +
 	coding_potential_calculations +
+        execute_pfamscan +
 	lgc_based_coding_potentials +
 	slncky_run.using(threads: nthreads) +
 	//plek_based_coding_potentials.using(threads: nthreads) +
