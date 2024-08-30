@@ -30,6 +30,7 @@ if(reads_R2=="") fastqInputFormat=fastqFormatSingle
 
 codeBase = file(bpipe.Config.config.script).parentFile.absolutePath
 lgc = codeBase + "/utils/lgc-1.0.py"
+pfamscan = codeBase + "pfam_scan.py"
 npcts_venn_script = codeBase + "/scripts/NPCTs-Venn.R"
 lnc_venn_script = codeBase + "/scripts/Lnc-Venn.R"
 lnc_intersect_script = codeBase + "/scripts/Lnc-Intersect.R"
