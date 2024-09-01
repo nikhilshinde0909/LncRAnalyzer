@@ -38,9 +38,11 @@ mamba env create -f cpc2-cpat-slncky.yml
 mamba env create -f rnasamba.yml
 ```
 
-7. Add the path of conda environments and installed softwares in the file named tools.groovy
-
-8. Inputs
+7. Run bash script in directory to add the path of conda environments and installed softwares in the file named tools.groovy
+```
+bash
+```
+9. Inputs
 Create directory to store inputs 
 ```
 mkdir data 
