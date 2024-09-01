@@ -5,7 +5,7 @@
  *********************************************************/
 
 //Run Pfamscan
-pfamscan_dir="pfamcsan_out"
+pfamscan_dir="pfamscan_out"
 
 download_pfam = {
 	output.dir=pfamscan_dir
@@ -28,13 +28,20 @@ gunzip_pfam = {
 }
 
 perform_hmmpress = {
-	exec "$hmmpress ${pfamscan_dir}/Pfam-A.hmm"
+	exec "$hmmpress -f ${pfamscan_dir}/Pfam-A.hmm"
+}
+
+translate_seq = {
+	output.dir=pfamscan_dir
+	from("Putative.lnc_NPCTs.fa") produce("Putative.lnc_NPCTs.pep"){
+	exec "$transeq -sequence $input -outseq $output"
+	}
 }
 
 perform_pfamcsan = {
 	output.dir=pfamscan_dir
-	from("Putative.lnc_NPCTs.fa") produce("Putative.lnc_NPCTs.pfamscan.txt"){
-	exec "$pfamscan -fasta $input -translate -e_seq 10e-5 -cpu $threads -dir ${pfamscan_dir} -outfile $output"
+	from("Pfam-A.hmm","Putative.lnc_NPCTs.pep") produce("Putative.lnc_NPCTs.pfamscan.txt","pfam.log"){
+	exec "$pfamscan --cpu $threads -E 10e-5 --tblout $output1 $input1 $input2 > $output2"
 	  }
 }
 
@@ -42,7 +49,7 @@ pfamscan_final_lnc_NPCTs = {
 	output.dir=pfamscan_dir
 	from("Putative.lnc_NPCTs.pfamscan.txt","Putative.lnc-NPCTs.list") produce("final_NPCTs_pfamscan.list","final_lncRNAs_pfamscan.list"){
 	exec """
-	cut -f 1 $input1| sort -u > $output1 ;
+	sed 1,3d $input1|awk '{print \$3}'|cut -d '_' -f 1| sort -u > $output1 ;
 	grep -v -w -f $output1 $input2 > $output2
 	"""
 	  }
@@ -58,4 +65,4 @@ pfamscan_extract_fasta = {
 	}
 }
 
-execute_pfamscan = segment { download_pfam + gunzip_pfam + perform_hmmpress + perform_pfamcsan + pfamscan_final_lnc_NPCTs + pfamscan_extract_fasta }
+execute_pfamscan = segment { download_pfam + gunzip_pfam + perform_hmmpress + translate_seq + perform_pfamcsan + pfamscan_final_lnc_NPCTs + pfamscan_extract_fasta }
