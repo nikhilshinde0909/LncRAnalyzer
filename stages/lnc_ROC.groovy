@@ -30,14 +30,14 @@ FEELnc_CPS = {
 
 CPC2_codpot = {
     output.dir=summary_dir
-    from("final_lnc_RNAs-cpc2.TSV") produce("CPC2_codpot.TSV") {
+    from("Putative.lnc_NPCTs.cpc2.txt") produce("CPC2_codpot.TSV") {
         exec "sed 1,1d $input | cut -f 1,7 > $output"
     }
 }
 
 lgc_codpot = {
     output.dir=summary_dir
-    from("final_lnc_RNAs-lgc.TSV") produce("lgc_codpot.TSV") {
+    from("Putative.lnc_NPCTs.lgc.txt") produce("lgc_codpot.TSV") {
         exec "sed 1,11d $input | cut -f 1,4 > $output"
     }
 }
@@ -51,15 +51,15 @@ CPAT_codpot = {
 
 RNAsamba_codpot = {
     output.dir=summary_dir
-    from("final_lnc_RNAs-rnasamba.TSV") produce("RNAsamba_codpot.TSV"){
+    from("Putative_lnc_NPCTs.rnasamba.TSV") produce("RNAsamba_codpot.TSV"){
         exec "sed 1,1d $input | cut -f 1,2 > $output"
     }
 }
 
 ROC_curve = {
     output.dir=summary_dir
-    from("LncRAnalyzer-Lncs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV","lgc_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
-        exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 $input6 > $output"
+    from("LncRAnalyzer-Lncs-intersect.txt","LncRAnalyzer-NPCTs-intersect.txt","FEELnc_codpot.TSV","CPAT_codpot.TSV","CPC2_codpot.TSV","RNAsamba_codpot.TSV","lgc_codpot.TSV") produce("LncRAnalyzer-ROC.log") {
+        exec "$Rscript $lnc_roc_script $input1 $input2 $input3 $input4 $input5 $input6 $input7 > $output"
     }
 }
 
