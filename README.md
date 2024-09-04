@@ -25,7 +25,7 @@ mamba env update --file LncRAnalyzer.yml
 
 4. Create conda environment for FEELnc with following commmand 
 ```
-mamba create -p ~/FEELnc -c bioconda feelnc 
+mamba create -n FEELnc -c bioconda feelnc 
 ```
   
 5. Create environment CPC2, CPAT and snlcky from environment file 
