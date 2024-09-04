@@ -18,7 +18,7 @@ feelnc_intergenic_codpot = {
 	output.dir=intergenic_dir
 	from("feelnc_intergenic_filter.gtf") produce("feelnc_intergenic.codpot.log"){
 	exec """
-	source $Activate $FEELnc ;
+	source $Activate FEELnc ;
 	$perl $FEELnc_codpot --infile=$input --mRNAfile=$annotation --genome=$genome $intergenic_codpot_options --outname=feelnc_intergenic.codpot --outdir=$intergenic_dir > $output
 	"""
 	}
