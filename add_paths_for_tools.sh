@@ -23,7 +23,7 @@ PLEKModelling_path=`which PLEKModelling.py 2>/dev/null`
 source $Activate_path rnasamba
 rnasamba_path=`which rnasamba 2>/dev/null`
 
-source $Activate_path ~/FEELnc
+source $Activate_path FEELnc
 perl_path=`which perl 2>/dev/null`
 FEELnc_filter_path=`which FEELnc_filter.pl 2>/dev/null`
 FEELnc_codpot_path=`which FEELnc_codpot.pl 2>/dev/null`
@@ -65,7 +65,6 @@ echo "// Path to rnasamba" >> ./tools.groovy
 echo "rnasamba=\"$rnasamba_path\"" >> ./tools.groovy
 echo ""	>> ./tools.groovy
 echo "// Path to FEELnc env and tools used by the pipeline" >> ./tools.groovy
-echo "FEELnc=\"~/FEELnc\"" >> ./tools.groovy
 echo "perl=\"$perl_path\"" >> ./tools.groovy
 echo "FEELnc_filter=\"$FEELnc_filter_path\"" >> ./tools.groovy
 echo "FEELnc_codpot=\"$FEELnc_codpot_path\"" >> ./tools.groovy
