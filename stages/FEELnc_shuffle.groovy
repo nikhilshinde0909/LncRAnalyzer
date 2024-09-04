@@ -18,7 +18,7 @@ feelnc_shuffle_codpot = {
 	output.dir=shuffle_dir
 	from("feelnc_shuffle_filter.gtf") produce("feelnc_shuffle.codpot.log"){
 	exec """
-	source $Activate $FEELnc ;
+	source $Activate FEELnc ;
 	$perl $FEELnc_codpot --infile=$input --mRNAfile=$annotation --genome=$genome $shuffle_codpot_options --outname=feelnc_shuffle.codpot --outdir=$shuffle_dir > $output
 	"""
 	}
