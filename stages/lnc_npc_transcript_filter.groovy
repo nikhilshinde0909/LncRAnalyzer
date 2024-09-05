@@ -18,7 +18,7 @@ putative_lnc_npc_transcripts_list = {
 putative_lnc_NPCTs = {
       output.dir=lnc_NPCTs_dir
       from("gffcompare.annotated.classcode_selected_lnc-npcts.gtf") produce("Putative.lnc_NPCTs.fa"){
-        exec "${gffread} $input-g $genome -w $output"
+        exec "${gffread} $input -g $genome -w $output"
       }
 }
 
