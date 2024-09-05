@@ -42,10 +42,22 @@ mamba env create -f rnasamba.yml
 ```
 bash add_paths_for_tools.sh
 ```
-9. Inputs
-Create directory to store inputs 
+9. Prepare your inputs and data.txt in working directory
 ```
-mkdir data 
+mkdir data
+Working directory
+├── data
+│   ├── SRR975551_1.fastq.gz
+│   ├── SRR975552_1.fastq.gz
+│   └── (and other fastq.gz files)
+│   ├── SRR975551_2.fastq.gz
+│   ├── SRR975552_2.fastq.gz
+│   └── (and other fastq.gz files)
+│   └── hg38.rRNA.fasta
+|   └── hg38.genome.fasta
+|   └── hg38.annotation.gtf
+|   └── (and other files)
+└── data.txt 
 ```  
 Copy your RNA-seq reads (.fastq.gz), rRNA sequences (.fa), Reference genomes (.fa), rel sp. reference genome (.fa), Annotations (.gtf) and Lifover files in data directory; create file data.txt in the same by using data_template.txt and add paths for raw fastq.gz, rRNA sequences, reference genome, rel sp. reference genome, annotations and lifover files in the same \
 If you don't have reference genome, annotations and rRNA sequence information; you can download the same with script provided with pipeline as follows
@@ -66,7 +78,7 @@ bpipe run -n ${threads} ~/Path_to_LncRAnalyzer/Main.groovy data/data.txt
 ## Thanks for using LncRAnalyzer !!
 
 ## Peformace
-The performance of coding potential prediction using CPAT, CPC2, RNAsamba and FEELnc was estimated with 50 RNA-Seq accessions of sorghum cultivar PR22 from past studies [https://doi.org/10.1186/s12864-019-5734-x] 
+The performance of coding potential prediction using CPAT, CPC2, LGC, RNAsamba and FEELnc was estimated with 50 RNA-Seq accessions of sorghum cultivar PR22 from past studies [https://doi.org/10.1186/s12864-019-5734-x] 
 
 <p align="center">
   <img src="https://github.com/nikhilshinde0909/LncRAnalyzer/blob/main/scripts/ROC.png" width=70% height=70%>
