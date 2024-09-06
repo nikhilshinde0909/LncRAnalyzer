@@ -47,7 +47,7 @@ final_lncs_gtf = {
 	from("LncRAnalyzer-Lncs-intersect.txt") produce("temp.gtf","LncRAnalyzer-Lncs-intersect.gtf") {
 	exec """
 	cat ${intergenic_dir}/feelnc_intergenic.codpot.lncRNA.gtf ${shuffle_dir}/feelnc_shuffle.codpot.lncRNA.gtf | sort -u > $output1 ;
-	$python3 $subset_gtf $output1 $input $output2 && rm -rf $output1
+	$python3 $subset_gtf $output1 $input $output2
  	"""
 	}
 }
