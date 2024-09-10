@@ -13,5 +13,5 @@ ln -sf $PWD/hmmer-3.1b1/src/* ~/mambaforge/bin/
 }
 
 hmmer_install
-hmmer_path=`which hmmscan'
-echo 'hmmer=3.1b1 has been installed to ' 
+hmmer_path=`which hmmscan 2>/dev/null`
+echo 'hmmer=3.1b1 has been installed to ' ${hmmer_path}
