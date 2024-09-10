@@ -75,6 +75,12 @@ Run following command and execute the steps for lncRNAs and NPCTs analysis
 ```
 bpipe run -n ${threads} ~/Path_to_LncRAnalyzer/Main.groovy data/data.txt
 ```
+
+Note: If the pipeline reports a "core-dumped" error then replace your existing hmmer installation with hmmer=3.1b1 using the script in the utils directory as follws
+```
+bash install_hmmer3.1.sh
+```
+
 ## Thanks for using LncRAnalyzer !!
 
 ## Peformace
