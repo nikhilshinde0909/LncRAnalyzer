@@ -71,7 +71,7 @@ putative_lnc_npcts_bed = {
 	output.dir=slncky_dir
 	from("Putative.lnc_NPCTs.gtf") produce("Putative-lnc-nptcs.bed"){
 	exec """
-	$gffread $annotation --bed -o ${output.dir}/temp.bed ;
+	$gffread $input --bed -o ${output.dir}/temp.bed ;
 	cut -f1-12 ${output.dir}/temp.bed > $output
 	"""
 	  }
