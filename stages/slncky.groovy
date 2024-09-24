@@ -79,7 +79,7 @@ putative_lnc_npcts_bed = {
 
 run_slncky = {
 	output.dir=slncky_dir
-	from("annotation.config","Putative-lnc-nptcs.bed") produce("final.lncs.info.txt"){
+	from("annotation.config","Putative-lnc-nptcs.bed") produce("slncky_out.lncs.info.txt"){
 	exec """
 	source $Activate cpc2-cpat-slncky ;
 	$slncky -n $threads -c $input1 $input2 $org_name $slncky_options $output.prefix.prefix.prefix
@@ -87,4 +87,14 @@ run_slncky = {
 	  }
 }
 
-slncky_run = segment { ref_genome_bed + fasta_index + annotation_config + putative_lnc_npcts_bed + run_slncky }
+ortholog_search = {
+	output.dir=slncky_dir
+	from("annotation.config","Putative-lnc-nptcs.bed") produce("slncky_ortho.log"){
+	exec """
+	source $Activate cpc2-cpat-slncky ;
+	$slncky -n $threads -c $input1 $input2 $slncky_ortho_options $org_name $rel_sp_name > $output
+	"""
+	  }
+}
+
+slncky_run = segment { ref_genome_bed + fasta_index + annotation_config + putative_lnc_npcts_bed + run_slncky + ortholog_search }
