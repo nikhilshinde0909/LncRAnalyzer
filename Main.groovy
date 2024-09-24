@@ -18,6 +18,7 @@ intergenic_filter_options="--monoex=0 --size=200"
 intergenic_codpot_options="--mode=intergenic"
 CPAT_options=""
 slncky_options=""
+slncky_ortho_options="--no_filter --minMatch=0.01 --no_orf --pad=100000"
 
 // Input options
 fastqFormatPaired="%_*.fastq.gz"
