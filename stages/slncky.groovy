@@ -88,13 +88,13 @@ run_slncky = {
 }
 
 ortholog_search = {
-	output.dir=slncky_dir
-	from("annotation.config","Putative-lnc-nptcs.bed") produce("slncky_ortho.log"){
-	exec """
-	source $Activate cpc2-cpat-slncky ;
-	$slncky -n $threads -c $input1 $input2 $slncky_ortho_options $org_name $rel_sp_name > $output
-	"""
-	  }
+    output.dir = slncky_dir
+    from("annotation.config", "Putative-lnc-nptcs.bed") produce(rel_sp_name + ".orthologs.top.txt") {
+        exec """
+        source $Activate cpc2-cpat-slncky ;
+        $slncky -n $threads -c $input1 $input2 $slncky_ortho_options $org_name $output.prefix.prefix.prefix
+        """
+    }
 }
 
 slncky_run = segment { ref_genome_bed + fasta_index + annotation_config + putative_lnc_npcts_bed + run_slncky + ortholog_search }
