@@ -89,7 +89,7 @@ run_slncky = {
 
 ortholog_search = {
     output.dir = slncky_dir
-    from("annotation.config", "Putative-lnc-nptcs.bed") produce(rel_sp_name + ".orthologs.top.txt") {
+    from("annotation.config", "Putative-lnc-nptcs.bed") produce(rel_sp_name+".orthologs.top.txt") {
         exec """
         source $Activate cpc2-cpat-slncky ;
         $slncky -n $threads -c $input1 $input2 $slncky_ortho_options $org_name $output.prefix.prefix.prefix
