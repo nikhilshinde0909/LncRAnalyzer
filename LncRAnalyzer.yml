@@ -1,5 +1,6 @@
 name: base
 channels:
+  - r
   - conda-forge
   - bioconda
   - defaults
@@ -24,7 +25,7 @@ dependencies:
   - c-ares=1.19.1
   - ca-certificates=2024.8.30
   - cairo=1.16.0
-  - certifi=2024.7.4
+  - certifi=2024.8.30
   - cffi=1.15.1
   - charset-normalizer=3.1.0
   - clustalw=2.1
@@ -60,7 +61,7 @@ dependencies:
   - gxx_impl_linux-64=12.2.0
   - harfbuzz=7.3.0
   - hisat2=2.2.1
-  - hmmer=3.3.2
+  - hmmer=3.4
   - icu=72.1
   - idna=3.4
   - isa-l=2.30.0
@@ -69,6 +70,8 @@ dependencies:
   - kernel-headers_linux-64=2.6.32
   - keyutils=1.6.1
   - krb5=1.20.1
+  - last=1584
+  - lastz=1.04.22
   - lcms2=2.15
   - ld_impl_linux-64=2.40
   - lerc=4.0.0
@@ -85,15 +88,14 @@ dependencies:
   - libev=4.33
   - libexpat=2.5.0
   - libffi=3.4.2
-  - libgcc=7.2.0
+  - libgcc=14.1.0
   - libgcc-devel_linux-64=12.2.0
-  - libgcc-ng=13.1.0
+  - libgcc-ng=14.1.0
   - libgd=2.3.3
   - libgfortran-ng=13.1.0
   - libgfortran5=13.1.0
   - libglib=2.76.3
-  - libgomp=13.1.0
-  - libharu=2.4.4
+  - libgomp=14.1.0
   - libiconv=1.17
   - libjpeg-turbo=2.1.5.1
   - liblapack=3.9.0
@@ -102,11 +104,13 @@ dependencies:
   - libnghttp2=1.52.0
   - libnsl=2.0.0
   - libopenblas=0.3.23
+  - libopenssl-static=3.3.2
   - libpng=1.6.43
   - libsanitizer=12.2.0
   - libsolv=0.7.24
   - libsqlite=3.42.0
   - libssh2=1.11.0
+  - libstdcxx=14.1.0
   - libstdcxx-devel_linux-64=12.2.0
   - libstdcxx-ng=12.2.0
   - libtiff=4.5.1
@@ -120,16 +124,19 @@ dependencies:
   - lzo=2.10
   - make=4.3
   - mamba=1.1.0
+  - mysql-connector-c=6.1.11
   - ncbi-vdb=3.0.5
   - ncurses=6.4.20240210
   - nextflow=23.04.1
   - numpy=1.25.0
   - openjdk=11.0.15
-  - openssl=3.3.1
+  - openjpeg=2.5.0
+  - openssl=3.3.2
   - ossuuid=1.6.2
   - packaging=23.1
   - pandoc=2.19.2
   - pango=1.50.14
+  - parallel=20170422
   - pblat=2.5.1
   - pcre2=10.40
   - perl=5.22.0.1
@@ -153,6 +160,7 @@ dependencies:
   - perl-xml-sax-base=1.08
   - perl-yaml=1.24
   - pfam_scan=1.6
+  - pillow=9.5.0
   - pip=22.3.1
   - pixman=0.40.0
   - plek=1.2
@@ -298,7 +306,6 @@ dependencies:
   - requests=2.31.0
   - ruamel.yaml=0.17.32
   - ruamel.yaml.clib=0.2.7
-  - ruamel_yaml=0.15.80
   - samtools=1.6
   - sed=4.8
   - seqtk=1.4
@@ -313,6 +320,15 @@ dependencies:
   - tktable=2.10
   - toolz=0.12.0
   - tqdm=4.65.0
+  - ucsc-axtchain=469
+  - ucsc-chainmergesort=469
+  - ucsc-chainnet=469
+  - ucsc-fatotwobit=469
+  - ucsc-lavtopsl=469
+  - ucsc-liftover=469
+  - ucsc-maftopsl=469
+  - ucsc-netchainsubset=469
+  - ucsc-twobitinfo=469
   - urllib3=2.0.3
   - wheel=0.40.0
   - xorg-fixesproto=5.0
@@ -334,7 +350,6 @@ dependencies:
   - xorg-xextproto=7.3.0
   - xorg-xproto=7.0.31
   - xz=5.2.6
-  - yaml=0.2.5
   - yaml-cpp=0.7.0
   - zlib=1.2.13
   - zstandard=0.19.0
