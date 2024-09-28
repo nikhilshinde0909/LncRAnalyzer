@@ -19,7 +19,7 @@ version = str(version.iloc[0]['display_name']).split(" ")[3]
 print("Ensembl version " + version)
 mart = server['plants_mart'] 
 df = mart.list_datasets()
-df = df[df['name'].str.contains(str(ensembl_name))]
+df = df[df['display_name'].str.contains(str(ensembl_name))]
 
 #print("Assembly version " + str(df.iloc[0]['display_name']).split("(")[1].split(")")[0])
 #print(str(df.iloc[0]['name']).split("_")[0] + "_" + str(df.iloc[0]['name']).split("_")[1])
