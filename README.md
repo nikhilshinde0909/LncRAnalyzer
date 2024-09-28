@@ -60,7 +60,7 @@ Working directory
 └── data.txt 
 ```  
 Copy your RNA-seq reads (.fastq.gz), rRNA sequences (.fa), Reference genomes (.fa), rel sp. reference genome (.fa), Annotations (.gtf) and Lifover files in data directory; create file data.txt in the same by using data_template.txt and add paths for raw fastq.gz, rRNA sequences, reference genome, rel sp. reference genome, annotations and lifover files in the same \
-If you don't have reference genome, annotations and rRNA sequence information; you can download the same with script provided with pipeline as follows
+If you don't have reference genome, annotations and rRNA sequence information; you can download the same with the script provided with the pipeline as follows
 ```
 python check_ensembl.py org_name
 eg. python find_species_in_ensembl.py Sorghum
@@ -69,7 +69,12 @@ python ensembl.py org_name_in_ensembl
 eg. python download_datasets_ensembl.py sbicolor
 > Ensembl version 56 <- download the datasets
 ```
-
+Similarly, if you don't have liftover files for conservation analysis then you can generate it through genome alignments of reference and query species genomes as follows
+```
+python Liftover.py <threads> <genome> <org_name> <genome_related_species> <rel_sp_name> <params_distance>
+eg.
+python Liftover.py 16 Sorghum_bicolor.dna.toplevel.fa Sbicolor Zea_mays.dna.toplevel.fa Zmays near
+```
 9. Pipeline is ready for executaion \
 Run following command and execute the steps for lncRNAs and NPCTs analysis 
 ```
