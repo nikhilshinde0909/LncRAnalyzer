@@ -120,9 +120,10 @@ def main():
     # Remove unnecessary files
     for file in os.listdir('.'):
        if (f"-{distance_seed}" in file or 
-         file.startswith(f"{org_name}.{rel_sp_name}.all.chain") or 
-         file.startswith(f"{org_name}-{rel_name}")):
-         os.remove(file)
+          file.startswith(f"{org_name}.{rel_sp_name}.all.chain") or 
+          file.startswith(f"{org_name}-{rel_name}") or
+          file.endswith(".maf")):
+          os.remove(file)
 
 if __name__ == "__main__":
     main()
