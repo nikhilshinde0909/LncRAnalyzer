@@ -75,6 +75,13 @@ python Liftover.py <threads> <genome> <org_name> <genome_related_species> <rel_s
 eg.
 python Liftover.py 16 Sorghum_bicolor.dna.toplevel.fa Sbicolor Zea_mays.dna.toplevel.fa Zmays near
 ```
+We also provide an additional script which will take ensembl gtf and produce bed files to run slncky as follows
+```
+python ensembl_gtf2bed.py <ensembl_gtf> <output_prefix>
+eg.
+python ensembl_gtf2bed.py Sorghum_bicolor.58.gtf Sorghum_bicolor
+```
+This will produce protein-coding, non-coding, mirRNA, and snoRNA bed files for slncky. 
 9. Pipeline is ready for executaion \
 Run following command and execute the steps for lncRNAs and NPCTs analysis 
 ```
