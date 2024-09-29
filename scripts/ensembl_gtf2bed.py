@@ -1,11 +1,11 @@
 import sys
 
-# Convert GTF to BED format
+# Function to convert GTF to 12-column BED format
 def gtf_to_bed(gtf_file, output_prefix):
     with open(gtf_file, 'r') as f:
         lines = f.readlines()
     
-    # Lists for different biotypes
+    # Different transcript biotypes
     protein_coding = []
     snoRNA = []
     miRNA = []
@@ -21,12 +21,22 @@ def gtf_to_bed(gtf_file, output_prefix):
         feature_type = fields[2]
         attributes = fields[8]
         
-        # Transcript biotype
+        # Extract transcript biotype and ID
         if 'transcript_biotype' in attributes:
             biotype = attributes.split('transcript_biotype "')[1].split('"')[0]
+            transcript_id = attributes.split('transcript_id "')[1].split('"')[0]
 
-            # Create BED entry
-            bed_entry = f"{fields[0]}\t{int(fields[3]) - 1}\t{fields[4]}\t{biotype}\n"
+            # Create BED12 entries
+            bed_entry = (
+                f"{fields[0]}\t{int(fields[3]) - 1}\t{fields[4]}\t{transcript_id}\t"
+                "0\t"  # Score 
+                f"{fields[6]}\t"  # Strand
+                f"{fields[3]}\t{fields[4]}\t"  # thickStart, thickEnd
+                "0,0,0\t"  # itemRGB (default black)
+                "1\t"  # blockCount
+                f"{int(fields[4]) - int(fields[3])}\t"  # blockSizes 
+                "0\n"  # blockStarts
+            )
 
             # Entries by biotype
             if biotype == 'protein_coding':
@@ -38,7 +48,7 @@ def gtf_to_bed(gtf_file, output_prefix):
             else:
                 noncoding.append(bed_entry)
 
-    # Write to BED files
+    # Write to BED12 files
     with open(f"{output_prefix}_protein_coding.bed", 'w') as f:
         f.writelines(protein_coding)
     
@@ -50,12 +60,12 @@ def gtf_to_bed(gtf_file, output_prefix):
 
     with open(f"{output_prefix}_noncoding.bed", 'w') as f:
         f.writelines(noncoding)
-        
+
 # Define command-line arguments
 if len(sys.argv) != 3:
     print("Usage: python ensembl_gtf2bed.py <ensembl_gtf> <output_prefix>")
     sys.exit(1)
-    
+
 # Sys args
 gtf_file = sys.argv[1]
 output_prefix = sys.argv[2]
