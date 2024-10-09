@@ -10,6 +10,7 @@ def gtf_to_bed(gtf_file, output_prefix):
     snoRNA = []
     miRNA = []
     noncoding = []
+    noncoding_misc = []
 
     for line in lines:
         if line.startswith('#'):
@@ -45,7 +46,7 @@ def gtf_to_bed(gtf_file, output_prefix):
                 snoRNA.append(bed_entry)
             elif biotype in ['miRNA', 'pre_miRNA']:
                 miRNA.append(bed_entry)
-            elif biotype =='pre_miRNA':
+            elif biotype =='ncRNA':
                 noncoding.append(bed_entry)
             else:
                 noncoding_misc.append(bed_entry)
