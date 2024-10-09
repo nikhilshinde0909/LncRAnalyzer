@@ -23,7 +23,7 @@ def main(ensembl_name):
         print(f"No datasets found matching '{ensembl_name}'.")
         sys.exit(1)
 
-    matching_names = df2['display_name']
+    matching_names = df2['name']
 #.apply(lambda x: " ".join(x.split()[:2])).unique()
     print("Following datasets are available at ensemble plants for " + ensembl_name)
     for name in matching_names:
