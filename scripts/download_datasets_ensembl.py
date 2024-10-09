@@ -66,7 +66,7 @@ def requests_retry_session(
     session.mount('https://', adapter)
     return session
 
-fasta = open("rRNAs.fasta","w")
+fasta = open(ensembl_name + ".rRNAs.fasta","w")
 server = "http://rest.ensembl.org"
 reqs_per_sec=15
 for i in dfToList:
@@ -101,7 +101,7 @@ if not ftp.nlst(filematch_primary):
 	for filename in ftp.nlst(filematch):
 		target_file_name = os.path.join(target_dir,os.path.basename(filename))
 		print(str(target_file_name))
-		with open("genome.dna.toplevel.fa.gz",'wb') as fhandle:
+		with open(ensembl_name + ".dna.toplevel.fa.gz",'wb') as fhandle:
 			ftp.retrbinary('RETR %s' %filename, fhandle.write)
 
 else:
@@ -109,7 +109,7 @@ else:
 	for filename in ftp.nlst(filematch_primary):
 		target_file_name = os.path.join(target_dir,os.path.basename(filename))
 		print(str(target_file_name))		
-		with open("genome.dna.toplevel.fa.gz",'wb') as fhandle:
+		with open(ensembl_name + ".dna.toplevel.fa.gz",'wb') as fhandle:
 			ftp.retrbinary('RETR %s' %filename, fhandle.write)	
 
 #GTF
@@ -125,12 +125,9 @@ for filename in ftp.nlst(filematch):
 	if "chr" not in str(target_file_name):
 		if "abinitio" not in str(target_file_name):
 			#print(str(target_file_name))
-			with open("genes.gtf.gz",'wb') as fhandle:
+			with open(ensembl_name + "genes.gtf.gz",'wb') as fhandle:
 				ftp.retrbinary('RETR %s' %filename, fhandle.write)
 #unzip everything
-
-
-
 
 """
 
