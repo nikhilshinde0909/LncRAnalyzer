@@ -2,6 +2,7 @@
 
 import os
 import sys
+import shutil
 
 def run_command(command, output_file=None):
     """Executes a shell command and checks for errors, with optional output redirection."""
@@ -73,8 +74,8 @@ def main():
     distance_fast = par4[params_distance]
 
     # Process fasta files
-    os.rename(genome, f"{org_name}.fa")
-    os.rename(genome_related_species, f"{rel_sp_name}.fa")
+    shutil.copy(genome, f"{org_name}.fa")
+    shutil.copy(genome_related_species, f"{rel_sp_name}.fa")
 
     run_command(["faToTwoBit", f"{org_name}.fa", f"{org_name}.2bit"])
     run_command(["faToTwoBit", f"{rel_sp_name}.fa", f"{rel_sp_name}.2bit"])
@@ -122,6 +123,8 @@ def main():
        if (f"-{distance_seed}" in file or 
           file.startswith(f"{org_name}.{rel_sp_name}.all.chain") or 
           file.startswith(f"{org_name}-{rel_sp_name}") or
+          file.startswith(f"{org_name}.fa") or
+          file.startswith(f"{rel_sp_name}.fa") or
           file.endswith(".maf")):
           os.remove(file)
 
