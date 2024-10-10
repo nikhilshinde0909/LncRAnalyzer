@@ -25,7 +25,7 @@ def main(ensembl_name):
 
     matching_names = df2['name']
 #.apply(lambda x: " ".join(x.split()[:2])).unique()
-    print("Following datasets are available at ensembl plants release " + version + "for " + ensembl_name)
+    print("Following datasets are available at ensembl plants release " + version + " for " + ensembl_name)
     for name in matching_names:
         print(name)
 
