@@ -7,12 +7,13 @@ import pandas as pd
 def main(ensembl_name):
     server = Server(host='http://plants.ensembl.org')
     version = server.list_marts()
-    
     version = version[version['display_name'].str.contains('Ensembl Plants Genes')]
     if version.empty:
         print("No Ensembl Plants Genes mart found.")
         sys.exit(1)
-
+ 
+    vertual_schema = str(version.iloc[0]['name'])
+    version1 = str(version.iloc[0]['display_name']).split(" ")[3]
     mart = server['plants_mart']
     df = mart.list_datasets()
     
@@ -25,7 +26,7 @@ def main(ensembl_name):
 
     matching_names = df2['name']
 #.apply(lambda x: " ".join(x.split()[:2])).unique()
-    print("Following datasets are available at ensembl plants release " + version + " for " + ensembl_name)
+    print("Following datasets are available at ensembl plants release " + version1 + " for " + ensembl_name)
     for name in matching_names:
         print(name)
 
