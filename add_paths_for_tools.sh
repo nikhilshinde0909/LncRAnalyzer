@@ -35,7 +35,7 @@ cpc2_path=`which CPC2.py 2>/dev/null`
 make_hexamer_path=`which make_hexamer_tab.py 2>/dev/null`
 logit_model_path=`which make_logitModel.py 2>/dev/null`
 CPAT_path=`which cpat.py 2>/dev/null`
-slncky_path=`which slncky 2>/dev/null`
+#slncky_path=`which slncky 2>/dev/null`
 
 # Add paths to tools.groovy
 echo 'adding paths to tools.groovy'
@@ -76,4 +76,4 @@ echo "cpc2=\"$cpc2_path\"" >> ./tools.groovy
 echo "make_hexamer=\"$make_hexamer_path\"" >> ./tools.groovy
 echo "logit_model=\"$logit_model_path\"" >> ./tools.groovy
 echo "CPAT=\"$CPAT_path\"" >> ./tools.groovy
-echo "slncky=\"$slncky_path\"" >> ./tools.groovy
+#echo "slncky=\"$slncky_path\"" >> ./tools.groovy
