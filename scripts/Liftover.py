@@ -125,6 +125,8 @@ def main():
           file.startswith(f"{org_name}-{rel_sp_name}") or
           file.startswith(f"{org_name}.fa") or
           file.startswith(f"{rel_sp_name}.fa") or
+          file.endswith(".2bit") or
+          file.endswith(".chromInfo") or
           file.endswith(".maf")):
           os.remove(file)
 
