@@ -30,7 +30,7 @@ mamba create -n FEELnc -c bioconda feelnc
   
 5. Create the environment for CPC2, CPAT, and Slncky from environment file 
 ```
-mamba env create -f cpc2-coat-slncky.yml
+mamba env create -f cpc2-cpat-slncky.yml
 ```
 
 6. Create the conda environment for RNAsamba
