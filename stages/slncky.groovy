@@ -93,7 +93,7 @@ ortholog_search = {
 	from("annotation.config", "Putative-lnc-nptcs.bed") produce(rel_sp_name+".orthologs.top.txt"){
         exec """
         source ${Activate} cpc2-cpat-slncky ;
-        $python2 $slncky -n $threads -c $input1 $input2 $slncky_ortho_options $org_name $output.prefix.prefix.prefix
+        $python2 $slncky -n $threads -c $input1 $slncky_ortho_options $input2 $org_name $output.prefix.prefix.prefix
         """
     	} 
 	} else {
