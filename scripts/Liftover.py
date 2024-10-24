@@ -74,10 +74,9 @@ def main():
     distance_fast = par4[params_distance]
 
     # Process target fasta files
-    shutil.copy(genome, f"{org_name}.fa")
-    run_command(["faToTwoBit", f"{org_name}.fa", f"{org_name}.2bit"])
+    run_command(["faToTwoBit", genome, f"{org_name}.2bit"])
     run_command(["twoBitInfo", f"{org_name}.2bit", f"{org_name}.chromInfo"])
-    run_command(["faidx -x",f"{org_name}.fa"])
+    run_command(["faidx -x",genome])
 
     # LastDB
     run_command(["lastdb", "-P" + threads, distance_fast, "-u" + distance_seed, "-R01", f"{org_name}-{distance_seed}", f"*.fa"])
@@ -95,7 +94,7 @@ def main():
 
     # Alignment with output redirection
     run_command(
-        ["lastal", "-P" + threads, "-i3G", distance_sense, "-E0.05", "-C2", "-p", f"{org_name}-{rel_sp_name}.mat", f"{org_name}-{distance_seed}", f"{rel_sp_name}.fa"],
+        ["lastal", "-P" + threads, "-i3G", distance_sense, "-E0.05", "-C2", "-p", f"{org_name}-{rel_sp_name}.mat", f"{org_name}-{distance_seed}", f"{rel_sp_name}.fa",f"|","last-split -m1"],
         output_file=f"{org_name}-{rel_sp_name}.maf"
     )
 
@@ -109,8 +108,7 @@ def main():
     run_command(["axtChain", "-psl", distance_axt, "-scoreScheme=" + f"{org_name}-{rel_sp_name}.mat", f"{org_name}-{rel_sp_name}.psl", f"{org_name}.2bit", f"{rel_sp_name}.2bit", f"{org_name}.{rel_sp_name}.all.chain"])
 
     # Net
-    os.makedirs("net", exist_ok=True)
-    run_command(["chainNet", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.chromInfo", f"{rel_sp_name}.chromInfo", "net/all.net", "/dev/null"])
+    run_command(["chainNet", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.chromInfo", f"{rel_sp_name}.chromInfo", "all.net", "/dev/null"])
 
     # Over chain
     run_command(["netChainSubset", "net/all.net", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.{rel_sp_name}.over.chain"])
@@ -122,12 +120,12 @@ def main():
     # Remove unnecessary files
     for file in os.listdir('.'):
        if (f"-{distance_seed}" in file or 
-          file.startswith(f"{org_name}.{rel_sp_name}.all.chain") or 
           file.startswith(f"{org_name}-{rel_sp_name}") or
-          file.startswith(f"{org_name}.fa") or
-          file.startswith(f"{rel_sp_name}.fa") or
+          file.endswith(".all.chain") or 
+          file.endswith(".fa") or
           file.endswith(".2bit") or
           file.endswith(".chromInfo") or
+          file.endswith(".net") or
           file.endswith(".maf")):
           os.remove(file)
 
