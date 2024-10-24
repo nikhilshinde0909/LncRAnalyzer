@@ -111,7 +111,7 @@ def main():
     run_command(["chainNet", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.chromInfo", f"{rel_sp_name}.chromInfo", "all.net", "/dev/null"])
 
     # Over chain
-    run_command(["netChainSubset", "net/all.net", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.{rel_sp_name}.over.chain"])
+    run_command(["netChainSubset", "all.net", f"{org_name}.{rel_sp_name}.all.chain", f"{org_name}.{rel_sp_name}.over.chain"])
     run_command(["head", f"{org_name}.{rel_sp_name}.over.chain"])
 
     # Gzip
