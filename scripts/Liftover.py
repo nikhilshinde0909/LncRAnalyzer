@@ -73,22 +73,23 @@ def main():
     distance_sense = par3[params_distance]
     distance_fast = par4[params_distance]
 
-    # Process fasta files
+    # Process target fasta files
     shutil.copy(genome, f"{org_name}.fa")
-    shutil.copy(genome_related_species, f"{rel_sp_name}.fa")
-
     run_command(["faToTwoBit", f"{org_name}.fa", f"{org_name}.2bit"])
-    run_command(["faToTwoBit", f"{rel_sp_name}.fa", f"{rel_sp_name}.2bit"])
-    run_command(["twoBitInfo", f"{rel_sp_name}.2bit", f"{rel_sp_name}.chromInfo"])
     run_command(["twoBitInfo", f"{org_name}.2bit", f"{org_name}.chromInfo"])
+    run_command(["faidx -x",f"{org_name}.fa"])
 
     # LastDB
-    run_command(["lastdb", "-P" + threads, distance_fast, "-u" + distance_seed, "-R01", f"{org_name}-{distance_seed}", f"{org_name}.fa"])
-    run_command(["lastdb", "-P" + threads, distance_fast, "-u" + distance_seed, "-R01", f"{rel_sp_name}-{distance_seed}", f"{rel_sp_name}.fa"])
+    run_command(["lastdb", "-P" + threads, distance_fast, "-u" + distance_seed, "-R01", f"{org_name}-{distance_seed}", f"*.fa"])
+
+    # Process query fasta files
+    shutil.copy(genome_related_species, f"{rel_sp_name}.fa")
+    run_command(["faToTwoBit", f"{rel_sp_name}.fa", f"{rel_sp_name}.2bit"])
+    run_command(["twoBitInfo", f"{rel_sp_name}.2bit", f"{rel_sp_name}.chromInfo"])
 
     # Last train with output redirection
     run_command(
-        ["last-train", "-P" + threads, "--revsym", "--matsym", "--gapsym", "-E0.05", "-C2", f"{rel_sp_name}-{distance_seed}", f"{rel_sp_name}.fa"],
+        ["last-train", "-P" + threads, "--revsym", "--matsym", "--gapsym", "-E0.05", "-C2", f"{org_name}-{distance_seed}", f"{rel_sp_name}.fa"],
         output_file=f"{org_name}-{rel_sp_name}.mat"
     )
 
