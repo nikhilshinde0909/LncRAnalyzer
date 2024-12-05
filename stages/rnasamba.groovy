@@ -9,12 +9,29 @@ rnasamba_dir="rnasamba_out"
 
 rnasamba_model=codeBase+"/Models/rnasamba/"+org_name+".hdf5"
 
+rnasamba_train = {
+	output.dir=rnasamba_dir
+	if (!file(rnasamba_model)){
+	from(org_name+".cds.fa") produce(org_name+".hdf5"){
+	exec "$rnasamba train -v 2 $output $input $known_lncRNAs_FA"
+	}
+	} else {
+	exec "echo 'No need to train models'"
+	}
+}
+
 rnasamba_classify = {
 	output.dir=rnasamba_dir
+	if (file(rnasamba_model)){
 	from("Putative.lnc_NPCTs.fa") produce("Putative_lnc_NPCTs.rnasamba.TSV"){
 	exec "$rnasamba classify $output $input $rnasamba_model"
-	  }
-}
+	}
+	} else {
+	from("Putative.lnc_NPCTs.fa",org_name+".hdf5") produce("Putative_lnc_NPCTs.rnasamba.TSV"){
+	exec "$rnasamba classify $output $input1 $input2" 
+	}
+	}
+} 
 
 rnasamba_final_lnc_RNAs = {
 	output.dir=rnasamba_dir
@@ -49,3 +66,4 @@ rnasamba_extract_fasta = {
 rnasamba_train_and_classify = segment { rnasamba_classify + 
 				rnasamba_final_lnc_RNAs + rnasamba_final_NPCTs + 
 				rnasamba_extract_fasta }
+
