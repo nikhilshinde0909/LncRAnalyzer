@@ -17,7 +17,7 @@ liftover=""
 noncoding="data/hg38.nc.bed"
 mir="data/hg38.mir.bed"
 sno="data/hg38.sno.bed"
-known_lncRNAs_FA=""  // Optional, In case the organism is not listed in supporting species
+known_lncRNAs_FA="data/hg38.lncpedia.fa"  // Optional, In case the organism is not listed in supporting species
 
 // related species name
 rel_sp_name="Mus_musculus"
