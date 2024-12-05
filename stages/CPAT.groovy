@@ -15,8 +15,11 @@ logit_model=codeBase+"/Models/CPAT/"+org_name+".logit.RData"
 extract_cds = {
 	output.dir=CPAT_dir
 	if (!file(hexamer_table) || !file(logit_model)){
-	produce(org_name+".cds.fa"){
-	exec "$gffread $annotation -g $genome -x $output"
+	produce(org_name+".cds.fa",org_name+".mRNAs.fa"){
+	exec """
+        $gffread $annotation -g $genome -x $output1 ;
+        $gffread $annotation -g $genome -x $output2
+        """
 	}
         } else { 
         exec "echo 'Hexamer table and logit models exist for organism'"
@@ -39,7 +42,7 @@ build_hexamer_table = {
 build_logit_model = {
     output.dir = CPAT_dir
     if (!file(hexamer_table) || !file(logit_model)){
-        from(org_name+"_hexamer.TSV",org_name+".cds.fa") produce(org_name+".make_logitModel.r"){
+        from(org_name + "_hexamer.TSV", org_name + ".cds.fa") produce(org_name + ".make_logitModel.r"){
             exec """
                 $python2 $logit_model -x $input1 -c $input2 -n $known_lncRNAs_FA -o $output.prefix
             """
@@ -74,7 +77,7 @@ run_CPAT = {
             """
         }
     } else {
-        from(org_name+"_hexamer.TSV","Putative.lnc_NPCTs.fa") produce("CPAT_output.TSV"){
+        from(org_name+"_hexamer.TSV", "Putative.lnc_NPCTs.fa") produce("CPAT_output.TSV"){
             exec """
                 $python2 $CPAT -x $input1 -g $input2 -d ${output.dir}/${org_name}.logit.RData $CPAT_options -o $output
             """

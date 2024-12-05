@@ -12,7 +12,7 @@ rnasamba_model=codeBase+"/Models/rnasamba/"+org_name+".hdf5"
 rnasamba_train = {
     output.dir = rnasamba_dir
     if (!file(rnasamba_model)){
-        from(org_name+".cds.fa") produce(org_name+".hdf5"){
+        from(org_name+".mRNAs.fa") produce(org_name+".hdf5"){
             exec """
                 $rnasamba train -v 2 $output $input $known_lncRNAs_FA
             """

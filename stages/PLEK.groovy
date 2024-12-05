@@ -9,7 +9,7 @@ PLEK_dir="PLEK_out"
 
 plek_modelling = {
 	output.dir=PLEK_dir
-	from(org_name+".cds.fa") produce("PLEK.model"){
+	from(org_name+".mRNAs.fa") produce("PLEK.model"){
 	exec """
 	$python3 $PLEKModelling -thread $threads -mRNA $input -lncRNA $known_lncRNAs_FA -prefix $output.prefix
 	"""
