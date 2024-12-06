@@ -13,9 +13,9 @@ rnasamba_train = {
     output.dir = rnasamba_dir
     if (!file(rnasamba_model)){
         from(org_name+".mRNAs.fa") produce(org_name+".hdf5"){
-            exec """
-                $rnasamba train -v 2 $output $input $known_lncRNAs_FA
-            """
+        exec """
+        $rnasamba train -v 2 $output $input $known_lncRNAs_FA
+        """
         }
     } else {
         exec "echo 'No need to train models'"
@@ -26,15 +26,15 @@ rnasamba_classify = {
     output.dir = rnasamba_dir
     if (file(rnasamba_model)){
         from("Putative.lnc_NPCTs.fa") produce("Putative.lnc_NPCTs.rnasamba.TSV"){
-            exec """
-                $rnasamba classify $output $input $rnasamba_model
-            """
+        exec """
+        $rnasamba classify $output $input $rnasamba_model
+        """
         }
     } else {
         from("Putative.lnc_NPCTs.fa", org_name + ".hdf5") produce("Putative.lnc_NPCTs.rnasamba.TSV") {
-            exec """
-                $rnasamba classify $output $input1 $input2
-            """
+        exec """
+        $rnasamba classify $output $input1 $input2
+        """
         }
     }
 }
