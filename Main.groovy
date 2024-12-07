@@ -115,6 +115,7 @@ lnc_intersect_script = codeBase + "/scripts/Lnc-Intersect.R"
 npct_intersect_script = codeBase + "/scripts/NPCTs-Intersect.R"
 lnc_roc_script = codeBase + "/scripts/ROC_curve.R"
 subset_gtf = codeBase + "/scripts/subset_gtf.py"
+DESeq2 = codeBase + "/scripts/DESeq2.R"
 
 load codeBase+"/tools.groovy"
 load codeBase+"/stages/fastp.groovy"
@@ -134,7 +135,7 @@ load codeBase+"/stages/FEELnc_intergenic.groovy"
 load codeBase+"/stages/summary.groovy"
 load codeBase+"/stages/lnc_ROC.groovy"
 load codeBase+"/stages/counts.groovy"
-
+load codeBase+"/stages/DESeq2.groovy"
 /******************* Here are the pipeline stages **********************/
 
 set_input = {
@@ -179,5 +180,7 @@ run { set_input + run_check +
 	intergenic.using(threads: nthreads) +
 	LncRAnalyzer_summary + 
 	LncRAnalyzer_ROC +
-	get_counts
+	get_counts +
+        DGE_analysis
 }
+
