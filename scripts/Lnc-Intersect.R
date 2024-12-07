@@ -16,7 +16,7 @@ CPC2_file <- args[3]
 RNAsamba_file <- args[4]
 LGC_file <- args[5]
 Pfamscan_file <- args[6]
-output_file <- commandArgs(trailingOnly = TRUE)[7] 
+output_file <- args[7] 
 
 # Read data from input files
 FEELnc <- read.table(FEELnc_file, header = FALSE, sep = '\t')
