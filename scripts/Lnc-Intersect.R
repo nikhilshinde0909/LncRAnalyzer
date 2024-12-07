@@ -4,18 +4,18 @@ library(dplyr)
 library(tidyverse)
 
 # Check if the required number of arguments is provided
-if (length(commandArgs(trailingOnly = TRUE)) != 7) {
-  cat("Usage: Rscript Lnc_Intersect.R FEELnc_file CPAT_file CPC2_file RNAsamba_file LGC_file Pfamscan_file output_file\n")
-  quit(save = "no", status = 1)
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) < 7) {
+  stop("Usage: Rscript Lnc_Intersect.R FEELnc_file CPAT_file CPC2_file RNAsamba_file LGC_file Pfamscan_file output_file\n")
 }
 
 # Get input file paths from command-line arguments
-FEELnc_file <- commandArgs(trailingOnly = TRUE)[1]
-CPAT_file <- commandArgs(trailingOnly = TRUE)[2]
-CPC2_file <- commandArgs(trailingOnly = TRUE)[3]
-RNAsamba_file <- commandArgs(trailingOnly = TRUE)[4]
-LGC_file <- commandArgs(trailingOnly = TRUE)[5]
-Pfamscan_file <- commandArgs(trailingOnly = TRUE)[6]
+FEELnc_file <- args[1]
+CPAT_file <- args[2]
+CPC2_file <- args[3]
+RNAsamba_file <- args[4]
+LGC_file <- args[5]
+Pfamscan_file <- args[6]
 output_file <- commandArgs(trailingOnly = TRUE)[7] 
 
 # Read data from input files
