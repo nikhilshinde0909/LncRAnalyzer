@@ -29,3 +29,6 @@ rel_liftover=""
 rel_noncoding="data/mm39.nc.bed"
 rel_mir="data/mm39.mir.bed"
 rel_sno="data/mm39.sno.bed"
+
+// Experimental design file 
+design="data/design.TSV" // Optional, Provide tab-separated exp design file with columns Run and Conditions
