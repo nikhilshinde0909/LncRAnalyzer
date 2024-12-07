@@ -7,8 +7,7 @@ library(tidyverse)
 # Check if the required number of arguments is provided
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 6) {
-  cat("Usage: Rscript NPCTs-Intersect.R CPAT_file CPC2_file RNAsamba_file LGC_file Pfamscan_file output_file\n")
-  quit(save = "no", status = 1)
+  stop("Usage: Rscript NPCTs-Intersect.R CPAT_file CPC2_file RNAsamba_file LGC_file Pfamscan_file output_file\n")
 }
 
 # Get input file paths from command-line arguments
