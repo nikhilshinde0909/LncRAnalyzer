@@ -3,19 +3,21 @@
 library(dplyr)
 library(tidyverse)
 
+
 # Check if the required number of arguments is provided
-if (length(commandArgs(trailingOnly = TRUE)) != 6) {
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) < 6) {
   cat("Usage: Rscript NPCTs-Intersect.R CPAT_file CPC2_file RNAsamba_file LGC_file Pfamscan_file output_file\n")
   quit(save = "no", status = 1)
 }
 
 # Get input file paths from command-line arguments
-CPAT_file <- commandArgs(trailingOnly = TRUE)[1]
-CPC2_file <- commandArgs(trailingOnly = TRUE)[2]
-RNAsamba_file <- commandArgs(trailingOnly = TRUE)[3]
-LGC_file <- commandArgs(trailingOnly = TRUE)[4]
-Pfamscan_file <- commandArgs(trailingOnly = TRUE)[5]
-output_file <- commandArgs(trailingOnly = TRUE)[6]
+CPAT_file <- args[1]
+CPC2_file <- args[2]
+RNAsamba_file <- args[3]
+LGC_file <- args[4]
+Pfamscan_file <- args[5]
+output_file <- args[6]
 
 # Read data from input files
 CPAT <- read.table(CPAT_file, header = FALSE, sep = '\t')
