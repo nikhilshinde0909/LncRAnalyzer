@@ -23,7 +23,7 @@ count_reads = {
 }
 
 get_tsv = {
-     output.dir=counts_dir
+     output.dir=summary_dir
      from(org_name+"_PCG.counts",org_name+"_Lnc.counts") produce(org_name+"_PCG.TSV",org_name+"_Lnc.TSV"){
      exec """
      sed 1,1d $input1 > $output1 ;
