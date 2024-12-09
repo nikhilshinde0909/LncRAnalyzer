@@ -73,7 +73,7 @@ CPAT_extract_fasta = {
     output.dir = CPAT_dir
     def cutoff = ""
     if (model == "Plants") {
-        cutoff = 0.378
+        cutoff = 0.460
     } else if (model == "Human") {
         cutoff = 0.360
     } else if (model == "Mouse") {
