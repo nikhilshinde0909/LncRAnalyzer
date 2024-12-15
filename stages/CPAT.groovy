@@ -76,7 +76,7 @@ get_cutoff = {
       if(file(hexamer_table).exists() || file(logit_model).exists()){
       exec "grep $org_name $cutoff_file | cut -f2 > $output"
       } else {
-      exec "$Rscript $fold10_crossval ${output.dir}/${org_name}.feature.xls ${org_name}.pdf $org_name $output && rm -rf test*.xls"
+      exec "$Rscript $fold10_crossval ${output.dir}/${org_name}.feature.xls ${output.dir}/${org_name}.pdf $org_name $output && rm -rf test*.xls"
       }
    }
 }
