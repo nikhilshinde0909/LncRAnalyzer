@@ -250,5 +250,5 @@ mtext(paste("CPC=", round(cutoff_intersection, 3)),
 mtext(paste("Sensitivity=", round(sensitivity_at_intersection, 3)), 
       side = 2, line = 2, at = sensitivity_at_intersection, col = "green", cex = 0.75)
 dev.off()
-cutoff_value <- round(sensitivity_at_intersection, 3)
+cutoff_value <- round(cutoff_intersection, 3)
 write.table(cutoff_value, cutoff_file, row.names = F, col.names = F, sep = '\t', quote = F)
