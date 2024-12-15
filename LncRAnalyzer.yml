@@ -1,8 +1,8 @@
 name: base
 channels:
+  - conda-forge
   - r
   - bioconda
-  - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
@@ -308,7 +308,7 @@ dependencies:
   - r-rappdirs=0.3.3
   - r-rcolorbrewer=1.1_3
   - r-rcpp=1.0.11
-  - r-rcpparmadillo=14.2.0_1
+  - r-rcpparmadillo=14.2.2_1
   - r-rcppeigen=0.3.4.0.1
   - r-rcppnumerical=0.6_0
   - r-rcurl=1.98_1.12
