@@ -16,7 +16,7 @@ rnasamba_train = {
         } else {
         from(org_name+".mRNAs.fa") produce(org_name+".hdf5"){
         exec """
-        $rnasamba train -v 2 $output $input $known_lncRNAs_FA
+        $rnasamba train -s 15 -e 20 -v 2 $output $input $known_lncRNAs_FA
         """
         }     
     }
