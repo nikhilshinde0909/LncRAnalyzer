@@ -9,6 +9,20 @@ rnasamba_dir="rnasamba_out"
 
 rnasamba_model=codeBase+"/Models/rnasamba/"+org_name+".hdf5"
 
+
+extract_mRNAs = {
+        output.dir = rnasamba_dir
+        if (file(org_name+".mRNAs.fa").exists()){
+        exec "echo 'No need to extract fasta'"
+        } else {
+        produce(org_name+".mRNAs.fa"){
+        exec """
+        $gffread $annotation -g $genome -w $output
+        """
+        }
+    }
+}
+
 rnasamba_train = {
         output.dir = rnasamba_dir
         if (file(rnasamba_model).exists()){
@@ -69,6 +83,6 @@ rnasamba_extract_fasta = {
 	}
 }
 
-rnasamba_train_and_classify = segment {rnasamba_train + rnasamba_classify + 
+rnasamba_train_and_classify = segment { extract_mRNAs + rnasamba_train + rnasamba_classify + 
 				rnasamba_final_lnc_RNAs + rnasamba_final_NPCTs + 
 				rnasamba_extract_fasta }

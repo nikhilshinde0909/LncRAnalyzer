@@ -12,10 +12,10 @@ PLEK_model=codeBase+"/Models/PLEK/"+org_name+".model"
 PLEK_range=codeBase+"/Models/PLEK/"+org_name+".range"
 
 
-extract_mRNAs = {
+extract_mRNAs_fa = {
 	output.dir=PLEK_dir
-	if (file(PLEK_model).exists() || file(PLEK_range).exists()){
-	exec "echo 'PLEK models and range exist for organism'"
+	if (file(org_name+".mRNAs.fa").exists()){
+	exec "echo 'mRNA fasta already exits'"
 	} else {
 	produce(org_name+".mRNAs.fa"){
 	exec """
@@ -84,7 +84,7 @@ plek_get_fasta = {
 	}
 }
 
-plek_based_coding_potentials = segment { extract_mRNAs + plek_modelling + 
+plek_based_coding_potentials = segment { extract_mRNAs_fa + plek_modelling + 
 				perform_plek + plek_final_lnc_RNAs + 
 				plek_final_NPCTs + plek_get_fasta 
 				}
