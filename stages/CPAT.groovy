@@ -89,7 +89,7 @@ CPAT_extract_fasta = {
       exec """
       awk -F '\t' -v cutoff=$cutoff '\$6 < cutoff' $input1 | cut -f1 | sed '1d' > $output1 ;
       $seqtk subseq $input2 $output1 > $output2 ;
-      awk -F '\t' -v cutoff=$cutoff '\$6 > cutoff' $input1 | cut -f1 | sed '1d' > $output3 ;
+      awk -F '\t' -v cutoff=$cutoff '\$6 >= cutoff' $input1 | cut -f1 | sed '1d' > $output3 ;
       $seqtk subseq $input2 $output3 > $output4
       """
       }
