@@ -45,15 +45,32 @@ perform_pfamcsan = {
 	  }
 }
 
-pfamscan_final_lnc_NPCTs = {
-	output.dir=pfamscan_dir
-	from("Putative.lnc_NPCTs.pfamscan.txt","Putative.lnc-NPCTs.list") produce("final_NPCTs_pfamscan.list","final_lncRNAs_pfamscan.list"){
-	exec """
-	grep -v -E '#' $input1|awk '{print \$3}'|cut -d '_' -f 1| sort -u > $output1 ;
-	grep -v -w -f $output1 $input2 > $output2
-	"""
-	  }
+pfamscan_final_NPCTs = {
+    output.dir = pfamscan_dir
+    from("Putative.lnc_NPCTs.pfamscan.txt") produce("final_NPCTs_pfamscan.list") {
+        exec """
+        grep -v -E '#' $input | awk '{print \$3}' | cut -d '_' -f 1 | sort -u > $output
+        """
+    }
 }
+
+pfamscan_final_lncrnas = {
+    output.dir = pfamscan_dir
+    from("final_NPCTs_pfamscan.list", "Putative.lnc-NPCTs.list") produce("final_lncRNAs_pfamscan.list") {
+        R {"""
+        # Reading the input files
+        data1 <- read.table('$input1', header=F, sep = '\t')
+        data2 <- read.table('$input2', header=F, sep = '\t')
+
+        # Removing entries from data2 that are present in data1
+        data3 <- data2[!data2$V1 %in% data1$V1,]
+
+        # Writing the output file
+        write.table(data3, file = '$output', row.names = F, col.names = F, quote = F, sep = '\t')
+        """}
+    }
+}
+
 
 pfamscan_extract_fasta = {
 	output.dir=pfamscan_dir
@@ -65,4 +82,7 @@ pfamscan_extract_fasta = {
 	}
 }
 
-execute_pfamscan = segment { download_pfam + gunzip_pfam + perform_hmmpress + translate_seq + perform_pfamcsan + pfamscan_final_lnc_NPCTs + pfamscan_extract_fasta }
+execute_pfamscan = segment { download_pfam + gunzip_pfam + perform_hmmpress + 
+                            translate_seq + perform_pfamcsan + 
+                            pfamscan_final_NPCTs + pfamscan_final_lncrnas +
+                            pfamscan_extract_fasta }
