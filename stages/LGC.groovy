@@ -18,8 +18,8 @@ lgc_final_lnc_RNAs = {
 	output.dir=lgc_dir
 	from("Putative.lnc_NPCTs.lgc.txt") produce("final_lnc_RNAs-lgc.TSV","final_lnc_RNAs-lgc.list"){
 	exec """
-	grep -E -w 'Non-coding' $input > $output1 ;
-	grep -E -w 'Non-coding' $input|cut -f1 > $output2
+	sed 1,11d $input | grep -E -w 'Non-coding' > $output1 ;
+	sed 1,11d $input | grep -E -w 'Non-coding' |cut -f1 > $output2
 	"""
 	  }
 }
@@ -28,8 +28,8 @@ lgc_final_NPCTs = {
 	output.dir=lgc_dir
 	from("Putative.lnc_NPCTs.lgc.txt") produce("final_NPCTs-lgc.TSV","final_NPCTs-lgc.list"){
 	exec """
-	grep -E -w 'Coding' $input > $output1 ;
-	grep -E -w 'Coding' $input|cut -f1 > $output2
+	sed 1,11d $input | grep -E -w 'Coding' > $output1 ;
+	sed 1,11d $input | grep -E -w 'Coding' |cut -f1 > $output2
 	"""
 	  }
 }
