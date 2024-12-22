@@ -49,7 +49,7 @@ pfamscan_final_lnc_NPCTs = {
 	output.dir=pfamscan_dir
 	from("Putative.lnc_NPCTs.pfamscan.txt","Putative.lnc-NPCTs.list") produce("final_NPCTs_pfamscan.list","final_lncRNAs_pfamscan.list"){
 	exec """
-	sed 1,3d $input1|awk '{print \$3}'|cut -d '_' -f 1| sort -u > $output1 ;
+	grep -v -E '#' $input1|awk '{print \$3}'|cut -d '_' -f 1| sort -u > $output1 ;
 	grep -v -w -f $output1 $input2 > $output2
 	"""
 	  }
