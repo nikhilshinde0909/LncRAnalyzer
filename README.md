@@ -42,7 +42,7 @@ mamba env create -f rnasamba.yml
 ```
 chmod +x add_paths_for_tools.sh && bash add_paths_for_tools.sh
 ```
-9. Prepare your inputs and data.txt in the working directory
+9. Prepare your inputs and data.groovy in the working directory
 ```
 mkdir data
 Working directory
