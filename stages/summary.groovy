@@ -56,11 +56,26 @@ final_ntpc_fa = {
 	output.dir=summary_dir
 	from("Putative.lnc_NPCTs.fa","LncRAnalyzer-NPCTs-intersect.txt","temp.gtf") produce("LncRAnalyzer-NPCTs-intersect.fa") {
 	exec """
-        ${seqtk} subseq $input1 $input2 > $output ;
-        rm -rf $input3
+        ${seqtk} subseq $input1 $input2 > $output && rm -rf $input3
         """
 	}
 }
 
 
-LncRAnalyzer_summary = segment {get_FEELnc_results + lnc_venn + npcts_venn + lnc_intersect + npcts_intersect + final_lncs_gtf + final_ntpc_fa}
+lncrna_classes = {
+        output.dir=summary_dir
+        from("LncRAnalyzer-Lncs-intersect.gtf") produce("lnc_classifier.log","feelnc_classes.txt"){
+        exec "$perl $FEELnc_classifier -i $input -a $annotation --log=$output1 > $output2"
+          }
+}
+
+classification_summary = {
+	output.dir=summary_dir
+	from("feelnc_classes.txt") produce("lncRNA_classes.TSV","Summary_classification.TSV"){
+	exec "Rscript $summary_clasification $input $output1 $output2"
+	}
+}
+	
+LncRAnalyzer_summary = segment { get_FEELnc_results + lnc_venn + npcts_venn + 
+                                lnc_intersect + npcts_intersect + final_lncs_gtf + 
+                                final_ntpc_fa + lncrna_classes + classification_summary }
