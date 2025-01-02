@@ -118,6 +118,7 @@ lnc_roc_script = codeBase + "/scripts/ROC_curve.R"
 subset_gtf = codeBase + "/scripts/subset_gtf.py"
 DESeq2 = codeBase + "/scripts/DESeq2.R"
 fold10_crossval = codeBase + "/scripts/10fold_crossval.R"
+summary_clasification = codeBase + "/scripts/get_lncRNA_classes.R"
 
 load codeBase+"/tools.groovy"
 load codeBase+"/stages/fastp.groovy"
@@ -167,7 +168,7 @@ nthreads=bpipe.Config.config.maxThreads
 
 run { set_input + run_check + 
 	quality_trimming.using(threads: nthreads) +
-	unmapped_reads_to_rRNAs.using(threads: nthreads) +
+	//unmapped_reads_to_rRNAs.using(threads: nthreads) +
 	genome_guided_assembly +
 	annotation_compare.using(threads: nthreads) +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
@@ -185,4 +186,3 @@ run { set_input + run_check +
 	get_counts +
         DGE_analysis
 }
-
