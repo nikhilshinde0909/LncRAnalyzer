@@ -71,7 +71,7 @@ putative_lnc_npcts_bed = {
 	from("Putative.lnc_NPCTs.gtf") produce("Putative-lnc-nptcs.bed"){
 	exec """
 	$gffread $input --bed -o ${output.dir}/temp.bed ;
-	cut -f1-12 ${output.dir}/temp.bed > $output
+	cut -f1-12 ${output.dir}/temp.bed > $output && rm ${output.dir}/temp.bed
 	"""
 	  }
 }
