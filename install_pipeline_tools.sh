@@ -85,7 +85,7 @@ else
     echo "No Python2.7 found in $HOME."
     exit 1
 fi
-echo "Changing permissions for "$LINK_DIR
+echo "Changing permissions for $LINK_DIR."
 chmod -R 777 $LINK_DIR
 
 echo "getting paths for tools"
