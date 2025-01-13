@@ -67,8 +67,7 @@ else
 fi
 
 # Create the symbolic link in the appropriate environment
-ln -sf $PWD/hmmer-3.1b1/src/* $LINK_DIR
-
+ln -sf $PWD/utils/hmmer-3.1b1/src/* $LINK_DIR
 hmmer_path=`which hmmscan 2>/dev/null`
 echo "HMMER 3.1b1 has been installed to: ${hmmer_path}"
 
@@ -154,4 +153,3 @@ echo "CPAT=\"$CPAT_path\"" >> ./tools.groovy
 #echo "slncky=\"$slncky_path\"" >> ./tools.groovy
 
 echo "Installation complete !!"
-
