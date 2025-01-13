@@ -71,6 +71,23 @@ ln -sf $PWD/utils/hmmer-3.1b1/src/* $LINK_DIR
 hmmer_path=`which hmmscan 2>/dev/null`
 echo "HMMER 3.1b1 has been installed to: ${hmmer_path}"
 
+# Detect existing Python2.7 installation and change permissions
+if [[ -d "$HOME/mambaforge/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+    echo "Python2.7 installation detected in Mambaforge."
+    LINK_DIR="$HOME/mambaforge/envs/cpc2-cpat-slncky/lib/python2.7"
+elif [[ -d "$HOME/miniforge/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+    echo "Python2.7 installation detected in Miniforge."
+    LINK_DIR="$HOME/miniforge/envs/cpc2-cpat-slncky/lib/python2.7"
+elif [[ -d "$HOME/anaconda3/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+    echo "Python2.7 installation detected in Anaconda."
+    LINK_DIR="$HOME/anaconda3/envs/cpc2-cpat-slncky/lib/python2.7"
+else
+    echo "No Python2.7 found in $HOME."
+    exit 1
+fi
+echo "Changing permissions for "$LINK_DIR
+chmod -R 777 $LINK_DIR
+
 echo "getting paths for tools"
 Activate_path=`which activate 2>/dev/null`
 bpipe_path=`which bpipe 2>/dev/null`
