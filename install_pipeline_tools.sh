@@ -3,13 +3,13 @@
 # Check for existing Mambaforge, Miniforge, or Anaconda installation
 if [[ -d "$HOME/mambaforge" ]]; then
     echo "Existing Mambaforge installation detected."
-    PATH=\$PATH:$HOME/mambaforge/bin/
+    BIN=$HOME/mambaforge/bin/
 elif [[ -d "$HOME/miniforge" ]]; then
-    echo "Existing Miniforge installation detected detected."
-    PATH=\$PATH:$HOME/miniforge/bin/
+    echo "Existing Miniforge installation detected."
+    BIN=$HOME/miniforge/bin/
 elif [[ -d "$HOME/anaconda3" ]]; then
     echo "Existing Anaconda installation detected."
-    PATH=\$PATH:$HOME/anaconda3/bin/
+    BIN=$HOME/anaconda3/bin/
 else
     echo "No recognized environment (Mambaforge, Miniforge, Anaconda) found in $HOME."
     echo "Installing Miniforge..."
@@ -17,11 +17,12 @@ else
     && chmod +x miniforge.sh \
     && bash miniforge.sh -b -p $HOME/miniforge \
     && rm miniforge.sh
-    PATH=\$PATH:$HOME/miniforge/bin/
+    
+    BIN=$HOME/miniforge/bin/
 fi
 
 # Export paths
-export PATH=$PATH
+export PATH=$PATH:$BIN
 
 # Verify that mamba is installed, if not use conda
 if ! command -v mamba &> /dev/null; then
@@ -181,5 +182,3 @@ echo "make_hexamer=\"$make_hexamer_path\"" >> ./tools.groovy
 echo "make_logit_model=\"$logit_model_path\"" >> ./tools.groovy
 echo "CPAT=\"$CPAT_path\"" >> ./tools.groovy
 #echo "slncky=\"$slncky_path\"" >> ./tools.groovy
-
-echo "Installation complete !!"
