@@ -63,7 +63,7 @@ gzip_reads = {
     } else {
         input_gzip_options = unmapped_reads_dir + "/" + branch.name + "_1.fastq " + unmapped_reads_dir + "/" + branch.name + "_2.fastq"
     }
-    exec "gzip $input_gzip_options"
+    exec "gzip -f $input_gzip_options"
 }
 
 unmapped_reads_to_rRNAs = segment { build_rRNA_index + fastqInputFormat * [ map_reads_to_rRNAs_and_unmapped_bam + 
