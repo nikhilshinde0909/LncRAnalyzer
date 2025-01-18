@@ -1,11 +1,23 @@
 #!/bin/bash
 
-# Install miniforge
-echo "Installing Miniforge..."
-curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o miniforge.sh \
+# Check for existing Mambaforge, Miniforge, or Anaconda installation
+if [[ -d "$HOME/mambaforge" ]]; then
+    echo "Mambaforge installation detected, creating symbolic links in Mambaforge."
+    LINK_DIR="$HOME/mambaforge/bin/"
+elif [[ -d "$HOME/miniforge" ]]; then
+    echo "Miniforge detected installation detected, creating symbolic links in Miniforge."
+    LINK_DIR="$HOME/miniforge/bin/"
+elif [[ -d "$HOME/anaconda3" ]]; then
+    echo "Anaconda detected installation detected, creating symbolic links in Anaconda."
+    LINK_DIR="$HOME/anaconda3/bin/"
+else
+    echo "No recognized environment (Mambaforge, Miniforge, Anaconda) found in $HOME."
+    echo "Installing Miniforge..."
+    curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o miniforge.sh \
     && chmod +x miniforge.sh \
     && bash miniforge.sh -b -p $HOME/miniforge \
     && rm miniforge.sh
+fi
 
 # Export paths
 export PATH=$PATH:$HOME/miniforge/bin/
