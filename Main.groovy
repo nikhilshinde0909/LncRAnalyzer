@@ -173,8 +173,8 @@ run { set_input + run_check +
 	annotation_compare.using(threads: nthreads) +
 	lnc_npc_transcript_selection.using(threads: nthreads) +
 	cpat_based_coding_potentials +
-	coding_potential_calculations +
-    execute_pfamscan +
+	coding_potential_calculations + 
+	execute_pfamscan +
 	lgc_based_coding_potentials +
 	slncky_run.using(threads: nthreads) +
 	rnasamba_train_and_classify +
