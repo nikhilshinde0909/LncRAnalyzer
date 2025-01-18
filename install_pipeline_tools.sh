@@ -182,3 +182,5 @@ echo "make_hexamer=\"$make_hexamer_path\"" >> ./tools.groovy
 echo "make_logit_model=\"$logit_model_path\"" >> ./tools.groovy
 echo "CPAT=\"$CPAT_path\"" >> ./tools.groovy
 #echo "slncky=\"$slncky_path\"" >> ./tools.groovy
+
+echo "Installation complete !!"
