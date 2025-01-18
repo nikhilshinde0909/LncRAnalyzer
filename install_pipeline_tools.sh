@@ -2,14 +2,11 @@
 
 # Check for existing Mambaforge, Miniforge, or Anaconda installation
 if [[ -d "$HOME/mambaforge" ]]; then
-    echo "Mambaforge installation detected, creating symbolic links in Mambaforge."
-    LINK_DIR="$HOME/mambaforge/bin/"
+    echo "Existing Mambaforge installation detected."
 elif [[ -d "$HOME/miniforge" ]]; then
-    echo "Miniforge detected installation detected, creating symbolic links in Miniforge."
-    LINK_DIR="$HOME/miniforge/bin/"
+    echo "Existing Miniforge installation detected detected."
 elif [[ -d "$HOME/anaconda3" ]]; then
-    echo "Anaconda detected installation detected, creating symbolic links in Anaconda."
-    LINK_DIR="$HOME/anaconda3/bin/"
+    echo "Existing Anaconda installation detected."
 else
     echo "No recognized environment (Mambaforge, Miniforge, Anaconda) found in $HOME."
     echo "Installing Miniforge..."
