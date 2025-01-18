@@ -3,13 +3,13 @@
 # Check for existing Mambaforge, Miniforge, or Anaconda installation
 if [[ -d "$HOME/mambaforge" ]]; then
     echo "Existing Mambaforge installation detected."
-    PATH=$PATH:$HOME/mambaforge/bin/
+    PATH=\$PATH:$HOME/mambaforge/bin/
 elif [[ -d "$HOME/miniforge" ]]; then
     echo "Existing Miniforge installation detected detected."
-    PATH=$PATH:$HOME/miniforge/bin/
+    PATH=\$PATH:$HOME/miniforge/bin/
 elif [[ -d "$HOME/anaconda3" ]]; then
     echo "Existing Anaconda installation detected."
-    PATH=$PATH:$HOME/anaconda3/bin/
+    PATH=\$PATH:$HOME/anaconda3/bin/
 else
     echo "No recognized environment (Mambaforge, Miniforge, Anaconda) found in $HOME."
     echo "Installing Miniforge..."
@@ -17,11 +17,11 @@ else
     && chmod +x miniforge.sh \
     && bash miniforge.sh -b -p $HOME/miniforge \
     && rm miniforge.sh
-    PATH=$PATH:$HOME/miniforge/bin/
+    PATH=\$PATH:$HOME/miniforge/bin/
 fi
 
 # Export paths
-export $PATH
+export PATH=$PATH
 
 # Verify that mamba is installed, if not use conda
 if ! command -v mamba &> /dev/null; then
