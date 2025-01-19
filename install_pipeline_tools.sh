@@ -64,43 +64,33 @@ function hmmer_install {
 
 hmmer_install
 
-# Detect existing Mambaforge, Miniforge, or Anaconda installation
-if [[ -d "$HOME/mambaforge" ]]; then
-    echo "Mambaforge installation detected, creating symbolic links in Mambaforge."
-    LINK_DIR="$HOME/mambaforge/bin/"
-elif [[ -d "$HOME/miniforge" ]]; then
-    echo "Miniforge detected installation detected, creating symbolic links in Miniforge."
-    LINK_DIR="$HOME/miniforge/bin/"
-elif [[ -d "$HOME/anaconda3" ]]; then
-    echo "Anaconda detected installation detected, creating symbolic links in Anaconda."
-    LINK_DIR="$HOME/anaconda3/bin/"
-else
-    echo "No recognized environment (Mambaforge, Miniforge, Anaconda) found in $HOME."
-    echo "Proceeding without symbolic link."
-    exit 1
-fi
-
-# Create the symbolic link in the appropriate environment
-ln -sf $PWD/utils/hmmer-3.1b1/src/* $LINK_DIR
+# Create the symbolic link for hmmmer-3.1b
+ln -sf $PWD/utils/hmmer-3.1b1/src/* $BIN
 hmmer_path=`which hmmscan 2>/dev/null`
 echo "HMMER 3.1b1 has been installed to: ${hmmer_path}"
 
 # Detect existing Python2.7 installation and change permissions
-if [[ -d "$HOME/mambaforge/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+if [[ -d "$HOME/mambaforge/envs/cpc2-cpat-slncky/" ]]; then
     echo "Python2.7 installation detected in Mambaforge."
-    LINK_DIR="$HOME/mambaforge/envs/cpc2-cpat-slncky/lib/python2.7"
-elif [[ -d "$HOME/miniforge/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+    PY_DIR="$HOME/mambaforge/envs/cpc2-cpat-slncky/lib/python2.7"
+    LINK_PATH="$HOME/mambaforge/envs/cpc2-cpat-slncky/bin/"
+elif [[ -d "$HOME/miniforge/envs/cpc2-cpat-slncky/" ]]; then
     echo "Python2.7 installation detected in Miniforge."
-    LINK_DIR="$HOME/miniforge/envs/cpc2-cpat-slncky/lib/python2.7"
-elif [[ -d "$HOME/anaconda3/envs/cpc2-cpat-slncky/lib/python2.7" ]]; then
+    PY_DIR="$HOME/miniforge/envs/cpc2-cpat-slncky/lib/python2.7"
+    LINK_PATH="$HOME/miniforge/envs/cpc2-cpat-slncky/bin/"
+elif [[ -d "$HOME/anaconda3/envs/cpc2-cpat-slncky/" ]]; then
     echo "Python2.7 installation detected in Anaconda."
-    LINK_DIR="$HOME/anaconda3/envs/cpc2-cpat-slncky/lib/python2.7"
+    PY_DIR="$HOME/anaconda3/envs/cpc2-cpat-slncky/lib/python2.7"
+    LINK_PATH="$HOME/anaconda3/envs/cpc2-cpat-slncky/bin/"
 else
     echo "No Python2.7 found in $HOME."
     exit 1
 fi
-echo "Changing permissions for $LINK_DIR."
-chmod -R 777 $LINK_DIR
+echo "Changing permissions for $PY_DIR."
+chmod -R 777 $PY_DIR
+echo "Creating symbolic link for Slncky"
+chmod +x $PWD/utils/slncky/slncky.v1.0 $PWD/utils/slncky/alignTranscripts1.0
+ln -sf $PWD/utils/slncky/alignTranscripts1.0 $PWD/utils/slncky/slncky.v1.0 $LINK_PATH
 
 echo "getting paths for tools"
 Activate_path=`which activate 2>/dev/null`
@@ -139,7 +129,7 @@ cpc2_path=`which CPC2.py 2>/dev/null`
 make_hexamer_path=`which make_hexamer_tab.py 2>/dev/null`
 logit_model_path=`which make_logitModel.py 2>/dev/null`
 CPAT_path=`which cpat.py 2>/dev/null`
-#slncky_path=`which slncky 2>/dev/null`
+slncky_path=`which slncky.v1.0 2>/dev/null`
 
 # Add paths to tools.groovy
 echo "adding paths to tools.groovy"
@@ -181,6 +171,6 @@ echo "cpc2=\"$cpc2_path\"" >> ./tools.groovy
 echo "make_hexamer=\"$make_hexamer_path\"" >> ./tools.groovy
 echo "make_logit_model=\"$logit_model_path\"" >> ./tools.groovy
 echo "CPAT=\"$CPAT_path\"" >> ./tools.groovy
-#echo "slncky=\"$slncky_path\"" >> ./tools.groovy
+echo "slncky=\"$slncky_path\"" >> ./tools.groovy
 
 echo "Installation complete !!"
