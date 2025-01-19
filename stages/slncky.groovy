@@ -9,7 +9,7 @@ slncky_dir="slncky_out"
 
 ref_genome_bed = {
 	output.dir=slncky_dir
-	produce("Ref_genome.bed","Rel_ref_genome.bed"){
+	produce(org_name+".protein_coding.bed",rel_sp_name+".protein_coding.bed"){
 	exec """
 	$gffread $annotation --bed -o ${output.dir}/temp.bed ;
 	cut -f1-12 ${output.dir}/temp.bed > $output1 && rm ${output.dir}/temp.bed ;
@@ -32,7 +32,7 @@ fasta_index = {
 
 annotation_config = {
     output.dir = slncky_dir
-    from("Ref_genome.bed","Rel_ref_genome.bed") produce("annotation.config") {
+    from(org_name+".protein_coding.bed",rel_sp_name+".protein_coding.bed") produce("annotation.config") {
         if (liftover != "") {
             exec """
             echo '>'$org_name >> $output ;
