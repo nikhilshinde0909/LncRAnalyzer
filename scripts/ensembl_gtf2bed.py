@@ -1,6 +1,6 @@
 import sys
 
-# Convert GTF to 12-column BED format
+# Convert GTF to BED12 format
 def gtf_to_bed(gtf_file, output_prefix):
     with open(gtf_file, 'r') as f:
         lines = f.readlines()
@@ -12,7 +12,7 @@ def gtf_to_bed(gtf_file, output_prefix):
     noncoding = []
     noncoding_misc = []
 
-    # Store transcripts and their exons
+    # Get transcripts and their exons
     transcript_exons = {}
     transcript_biotypes = {}
 
@@ -36,9 +36,9 @@ def gtf_to_bed(gtf_file, output_prefix):
             if feature_type == "exon":
                 if transcript_id not in transcript_exons:
                     transcript_exons[transcript_id] = []
-                transcript_exons[transcript_id].append((int(fields[3]), int(fields[4]), fields[6])) 
+                transcript_exons[transcript_id].append((int(fields[3]), int(fields[4]), fields[6], fields[0])) 
 
-    # Process the collected exons for BED12 entries
+    # Get exons for BED12 entries
     for transcript_id, exons in transcript_exons.items():
         exons.sort()
 
@@ -52,18 +52,19 @@ def gtf_to_bed(gtf_file, output_prefix):
         blockStarts_str = ','.join(blockStarts)
         blockSizes_str = ','.join(blockSizes)
 
-        # Use the first exon to get the chromosome, strand, thickStart, and thickEnd
-        chrom = exons[0][0] 
+        # Use the first exon to get strand, thickStart, and thickEnd
+        chrom = exons[0][3]
         strand = exons[0][2]
         thickStart = exons[0][0]
-        thickEnd = exons[-1][1]
+        thickEnd = exons[-1][1] 
         
         # Transcript biotype for current transcript
         biotype = transcript_biotypes.get(transcript_id, 'unknown')
+        transcript_end = max([exon[1] for exon in exons]) 
 
         # Get BED12 entry for this transcript
         bed_entry = (
-            f"{chrom}\t{int(exons[0][0]) - 1}\t{fields[4]}\t{transcript_id}\t"
+            f"{chrom}\t{int(exons[0][0]) - 1}\t{transcript_end}\t{transcript_id}\t"
             "100\t"  # Score
             f"{strand}\t"  # Strand
             f"{thickStart}\t{thickEnd}\t"  # thickStart, thickEnd
