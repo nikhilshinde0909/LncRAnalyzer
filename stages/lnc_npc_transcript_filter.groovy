@@ -10,21 +10,18 @@ lnc_NPCTs_dir="Putative_lnc-NPCTs"
 
 putative_lnc_npc_transcripts_list = {
       output.dir=lnc_NPCTs_dir
-      from("gffcompare.annotated.classcode_selected_lnc-npcts.gtf") produce("Putative.lnc_NPCTs.gtf","Putative.lnc-NPCTs.list"){
+      from("gffcompare.annotated.classcode_selected_lnc-npcts.gtf","genome_merged.gtf") produce("Putative.lnc-NPCTs.list","Putative.lnc_NPCTs.gtf"){
         exec """
-	cat $input > $output1 ;
-	cut -d ';' -f 1 $input|cut -f 9|sed 's/transcript_id //g;s/\"//g' > $output2
+	cut -d ';' -f 1 $input1|cut -f 9|sed 's/transcript_id //g;s/\"//g' > $output1 ;
+	$python3 $subset_gtf $input2 $output1 $output2
 	"""
       }
 }
 
 putative_lnc_NPCTs = {
       output.dir=lnc_NPCTs_dir
-      from("genome_merged.gtf","Putative.lnc-NPCTs.list") produce("genome_merged.fa","Putative.lnc_NPCTs.fa"){
-        exec """
-        ${gffread} $input1 -g $genome -w $output1 ;
-        ${seqtk} subseq $output1 $input2 > $output2
-        """
+      from("Putative.lnc_NPCTs.gtf") produce("Putative.lnc_NPCTs.fa"){
+        exec "${gffread} $input -g $genome -w $output"
       }
 }
 
