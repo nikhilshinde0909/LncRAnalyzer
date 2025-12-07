@@ -1,5 +1,5 @@
 /***********************************************************
- ** Stages to preform annotation compare classcode selection 
+ ** Stages to perform annotation: compare class code selection 
  ** Author: Nikhil Shinde <sd1172@srmist.edu.in>
  ** Last Update: 30/05/2023
  *********************************************************/
@@ -12,16 +12,16 @@ putative_lnc_npc_transcripts_list = {
       output.dir=lnc_NPCTs_dir
       from("gffcompare.annotated.classcode_selected_lnc-npcts.gtf","genome_merged.gtf") produce("Putative.lnc-NPCTs.list","Putative.lnc_NPCTs.gtf"){
         exec """
-	cut -d ';' -f 1 $input1|cut -f 9|sed 's/transcript_id //g;s/\"//g' > $output1 ;
-	$python3 $subset_gtf $input2 $output1 $output2
-	"""
+		cut -d ';' -f 1 $input1|cut -f 9|sed 's/transcript_id //g;s/\"//g' > $output1 ;
+		$python3 $subset_gtf $input2 $output1 $output2
+		"""
       }
 }
 
 putative_lnc_NPCTs = {
       output.dir=lnc_NPCTs_dir
       from("Putative.lnc_NPCTs.gtf") produce("Putative.lnc_NPCTs.fa"){
-        exec "${gffread} $input -g $genome -w $output"
+		  exec "${gffread} $input -g $genome -w $output"
       }
 }
 
