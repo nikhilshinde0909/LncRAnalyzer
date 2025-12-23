@@ -195,5 +195,5 @@ run { set_input + run_check +
 	TE_derived_lncRNAs +
 	LncRAnalyzer_ROC +
 	get_counts +
-        DGE_analysis
+    DGE_analysis
 }
