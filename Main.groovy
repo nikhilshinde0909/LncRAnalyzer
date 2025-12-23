@@ -80,8 +80,7 @@ if (args == null) {
     println "No config file provided"
     printHelp()
     System.exit(1)
-} else {# Stage run_slncky
-
+} else {
     println "LncRAnalyzer configuration file found"
     load args[0]
 }
