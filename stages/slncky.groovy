@@ -14,7 +14,7 @@ ref_genome_bed = {
 	$gffread $annotation --bed -o ${output.dir}/temp.bed ;
 	cut -f1-12 ${output.dir}/temp.bed > $output1 && rm ${output.dir}/temp.bed ;
 	$gffread $annotation_related_species --bed -o ${output.dir}/temp1.bed ;
-        cut -f1-12 ${output.dir}/temp1.bed > $output2 && rm ${output.dir}/temp1.bed ;
+	cut -f1-12 ${output.dir}/temp1.bed > $output2 && rm ${output.dir}/temp1.bed ;
 	"""
 	  }
 }
