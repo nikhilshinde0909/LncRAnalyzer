@@ -1,11 +1,7 @@
-# LncRAnalyzer
+# LncRAnalyzer:
 A pipeline for lncRNAs and Novel Protein Coding Transcripts (NPCTs) identification using RNA-Seq
 
-# Introduction
-# LncRAnalyzer
-A pipeline for lncRNAs and Novel Protein Coding Transcripts (NPCTs) identification using RNA-Seq
-
-# Introduction
+# Introduction:
 LncRAnalyzer is a comprehensive workflow to identify lncRNAs and Novel Protein Coding Transcripts (NPCT) using RNA-Seq. The pipeline contains several steps including quality control, read alignment to reference genome, reference-guided transcript assembly, merge annotations, annotation comparison, class code selection, and retrieval of transcripts in FASTA format. The putative class code selected transcripts will be further evaluated for their coding potentials, features, and protein domain homologies using CPC2, CPAT, PLEK (Time-consuming), RNAsamba, LncFinder, LGC, and PfamScan. The final lncRNAs and NPCTs will be selected based on coding potentials, features, and protein domain homologies. Additionally, if LiftOver files for the organism and related species is provided; this pipeline also performs cross-species lncRNA conservation analysis using Slncky. We also integrated the FEELnc plugin to report the mRNA spliced and intergenic lncRNAs in given RNA-seq samples. For NPCTs, further functional annotations is needed which includes peptide sequences prediction using TransDecoder followed by homology searches using Pfamscan, BLASTP, and BLASTX. The entire workflow is automated using Bpipe and could be implemented in multiple working environment such as Conda, Docker and Singularity.
 
 <p align="center">
@@ -13,7 +9,7 @@ LncRAnalyzer is a comprehensive workflow to identify lncRNAs and Novel Protein C
 </p>
 
 
-# Implementation
+# Implementation:
 
 ## Conda environment
 1. To execute the steps in the pipeline, download the latest release of LncRAnalyzer to your local system with the following command 
@@ -193,10 +189,12 @@ Note: Please refer to the LncRAnalyzer documentation to work with pre-built LncR
 
 ## Thanks for using LncRAnalyzer
 
-# Peformace
+# Cite:
+Nikhil, S., Shaik Mohideen, H., & Natesan Sella, R. (2025). LncRAnalyzer: a robust workflow for long non-coding RNA discovery using RNA-Seq. The Plant journal : for cell and molecular biology, 124(1), e70509. https://doi.org/10.1111/tpj.70509
+
+# Peformace:
 The performance of coding potential prediction using CPAT, CPC2, LGC, RNAsamba, and FEELnc was estimated with 50 RNA-Seq accessions of sorghum cultivar PR22 from past studies [https://doi.org/10.1186/s12864-019-5734-x] 
 
 <p align="center">
   <img src="https://gitlab.com/nikhilshinde0909/LncRAnalyzer/raw/main/scripts/ROC.png" width=70% height=70%>
 </p>
-
